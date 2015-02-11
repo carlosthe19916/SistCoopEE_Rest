@@ -85,6 +85,7 @@ public class ModelToRepresentation {
 		AgenciaRepresentation agenciaRepresentation = new AgenciaRepresentation();
 		agenciaRepresentation.setId(agenciaModel.getId());
 		agenciaRepresentation.setDenominacion(agenciaModel.getDenominacion());
+		agenciaRepresentation.setCodigo(agenciaModel.getCodigo());
 		rep.setAgencia(agenciaRepresentation);
 
 		return rep;
