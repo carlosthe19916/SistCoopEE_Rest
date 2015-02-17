@@ -164,7 +164,7 @@ public class CajaResource {
 			return result;
 		}
 	}
-	
+
 	@GET
 	@Path("/{id}/detalle/penultimo")
 	@Produces({ "application/xml", "application/json" })
@@ -174,7 +174,7 @@ public class CajaResource {
 
 	@PUT
 	@Path("/{id}")
-	@Produces({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })	
 	public void update(@PathParam("id") Integer id, CajaRepresentation rep) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		model.setDenominacion(rep.getDenominacion());
@@ -184,7 +184,7 @@ public class CajaResource {
 
 	@POST
 	@Path("/{id}/desactivar")
-	@Produces({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })	
 	public void desactivar(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		if (model == null) {
@@ -195,7 +195,7 @@ public class CajaResource {
 
 	@POST
 	@Path("/{id}/abrir")
-	@Produces({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })	
 	public void abrir(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		if (model == null) {
@@ -206,7 +206,7 @@ public class CajaResource {
 
 	@POST
 	@Path("/{id}/cerrar")
-	@Produces({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })	
 	public void cerrar(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		if (model == null) {
@@ -217,7 +217,7 @@ public class CajaResource {
 
 	@POST
 	@Path("/{id}/bovedas")
-	@Produces({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })	
 	public Response addBoveda(@PathParam("id") Integer id, BovedaRepresentation bovedaRepresentation) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(bovedaRepresentation.getId());
@@ -234,7 +234,7 @@ public class CajaResource {
 
 	@POST
 	@Path("/{id}/bovedas/{idBoveda}/desactivar")
-	@Produces({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })	
 	public void desactivarBovedaCaja(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(idBoveda);
@@ -272,4 +272,5 @@ public class CajaResource {
 		bovedaCajaModelToRemove.setEstado(false);
 		bovedaCajaModelToRemove.commit();
 	}
+
 }

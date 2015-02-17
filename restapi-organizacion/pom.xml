@@ -54,6 +54,12 @@
 			<artifactId>jboss-ejb-api_3.2_spec</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-ejb3</artifactId>
+			<version>8.1.0.Final</version>
+		</dependency>
+
 
 		<!-- Import the JAX-RS API, we use provided scope as the API is included 
 			in JBoss WildFly -->
@@ -67,7 +73,7 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 			<version>3.0.8.Final</version>
 			<scope>provided</scope>
-		</dependency>		
+		</dependency>
 
 		<!-- Import the CDI API, we use provided scope as the API is included in 
 			JBoss WildFly -->

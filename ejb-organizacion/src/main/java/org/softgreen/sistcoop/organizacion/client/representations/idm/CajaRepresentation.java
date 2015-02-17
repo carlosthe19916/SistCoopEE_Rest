@@ -29,7 +29,7 @@ public class CajaRepresentation implements Serializable {
 	private List<BovedaRepresentation> bovedas;
 	private List<TrabajadorRepresentation> trabajadores;
 
-	@XmlAttribute
+	@XmlAttribute	
 	public Integer getId() {
 		return id;
 	}

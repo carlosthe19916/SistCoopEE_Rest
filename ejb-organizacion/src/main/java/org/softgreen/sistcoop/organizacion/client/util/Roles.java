@@ -7,6 +7,7 @@ public class Roles {
 	public final static String PLATAFORMA = "PLATAFORMA";
 	public final static String ADMINISTRADOR = "ADMINISTRADOR";
 	public final static String ADMINISTRADOR_GENERAL = "ADMINISTRADOR_GENERAL";
+	public final static String GERENTE_GENERAL = "GERENTE_GENERAL";
 	public final static String ADMIN = "ADMIN";
 
 }
