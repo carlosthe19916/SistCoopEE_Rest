@@ -224,12 +224,12 @@ public class CajaResource {
 	@Path("/{id}/cerrar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.CAJERO)
-	public void cerrar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
+	public void cerrar(@PathParam("id") @NotNull @Min(value = 1) Integer id, @NotNull List<DetalleHistorialCajaRepresentation> detalle) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
 		}
-		cajaManager.cerrar(model);
+		cajaManager.cerrar(model, detalle);
 	}
 
 	@POST

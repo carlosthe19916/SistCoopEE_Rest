@@ -16,6 +16,10 @@ public class DetalleHistorialCajaRepresentation implements Serializable {
 	private BovedaRepresentation boveda;
 	private List<DetalleHistorialRepresentation> detalleHistorial;
 
+	public DetalleHistorialCajaRepresentation() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public DetalleHistorialCajaRepresentation(List<DetalleHistorialRepresentation> detalleHistorial) {
 		this.detalleHistorial = detalleHistorial;
 	}
@@ -34,6 +38,6 @@ public class DetalleHistorialCajaRepresentation implements Serializable {
 
 	public void setBoveda(BovedaRepresentation boveda) {
 		this.boveda = boveda;
-	}
+	}		
 
 }
