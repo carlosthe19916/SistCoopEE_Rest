@@ -70,7 +70,7 @@ public class SucursalResource {
 	@GET
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<SucursalRepresentation> findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 1) Integer limit, @QueryParam("offset") @Min(value = 1) Integer offset) {
+	public List<SucursalRepresentation> findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 0) Integer offset) {
 		List<SucursalModel> list = null;
 		if (estado == null) {
 			if (limit == null) {

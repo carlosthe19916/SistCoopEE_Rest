@@ -24,7 +24,7 @@ public class TrabajadorRepresentation implements Serializable {
 	private String tipoDocumento;
 	private String numeroDocumento;
 	private String usuario;
-	private boolean estado;
+	private Boolean estado;
 
 	private CajaRepresentation caja;
 	private AgenciaRepresentation agencia;
@@ -71,11 +71,11 @@ public class TrabajadorRepresentation implements Serializable {
 
 	@XmlAttribute
 	@AssertTrue
-	public boolean isEstado() {
+	public Boolean isEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 

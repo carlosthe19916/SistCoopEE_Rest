@@ -25,7 +25,7 @@ public class CajaRepresentation implements Serializable {
 	private String denominacion;
 	private boolean abierto;
 	private boolean estadoMovimiento;
-	private boolean estado;
+	private Boolean estado;
 
 	private AgenciaRepresentation agencia;
 
@@ -72,11 +72,11 @@ public class CajaRepresentation implements Serializable {
 
 	@XmlAttribute
 	@AssertTrue
-	public boolean isEstado() {
+	public Boolean isEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 

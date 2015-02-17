@@ -135,7 +135,7 @@ public class AgenciaResource {
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<TrabajadorRepresentation> getTrabajadores(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 1) Integer limit, @QueryParam("offset") @Min(value = 1) Integer offset) {
+	public List<TrabajadorRepresentation> getTrabajadores(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 1) Integer offset) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();

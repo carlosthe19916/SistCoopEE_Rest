@@ -25,7 +25,7 @@ public class AgenciaRepresentation implements Serializable {
 	private String abreviatura;
 	private String denominacion;
 	private String ubigeo;
-	private boolean estado;
+	private Boolean estado;
 
 	private SucursalRepresentation sucursal;
 
@@ -85,11 +85,11 @@ public class AgenciaRepresentation implements Serializable {
 
 	@XmlAttribute
 	@AssertTrue
-	public boolean isEstado() {
+	public Boolean isEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 

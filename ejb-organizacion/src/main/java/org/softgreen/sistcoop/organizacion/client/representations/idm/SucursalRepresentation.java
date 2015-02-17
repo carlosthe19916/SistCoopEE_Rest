@@ -22,7 +22,7 @@ public class SucursalRepresentation implements Serializable {
 	private Integer id;
 	private String abreviatura;
 	private String denominacion;
-	private boolean estado;
+	private Boolean estado;
 
 	public SucursalRepresentation() {
 		// TODO Auto-generated constructor stub
@@ -60,11 +60,11 @@ public class SucursalRepresentation implements Serializable {
 
 	@XmlAttribute
 	@AssertTrue
-	public boolean isEstado() {
+	public Boolean isEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 
