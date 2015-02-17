@@ -3,6 +3,9 @@ package org.softgreen.sistcoop.organizacion.client.representations.idm;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -30,6 +33,7 @@ public class BovedaRepresentation implements Serializable {
 	private AgenciaRepresentation agencia;
 
 	@XmlAttribute
+	@Min(value = 1)
 	public Integer getId() {
 		return id;
 	}
@@ -39,6 +43,7 @@ public class BovedaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 1, max = 3)
 	public String getMoneda() {
 		return moneda;
 	}
@@ -48,6 +53,7 @@ public class BovedaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 1, max = 60)
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -75,6 +81,7 @@ public class BovedaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@AssertTrue
 	public boolean isEstado() {
 		return estado;
 	}
@@ -84,6 +91,7 @@ public class BovedaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Min(value = 0)
 	public BigDecimal getSaldo() {
 		return saldo;
 	}

@@ -16,3 +16,5 @@ public class EJBExceptionMapper implements ExceptionMapper<javax.ejb.EJBExceptio
 	}
 
 }
+
+

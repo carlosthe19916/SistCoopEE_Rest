@@ -2,6 +2,7 @@ package org.softgreen.sistcoop.organizacion.restapi.resources;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -9,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import org.jboss.ejb3.annotation.SecurityDomain;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
@@ -23,14 +25,16 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.Trabajador
 
 @Path("/usuarios")
 @Stateless
+@SecurityDomain("keycloak")
 public class UsuarioResource {
 
 	@Inject
-	protected TrabajadorProvider trabajadorProvider;	
+	protected TrabajadorProvider trabajadorProvider;
 
 	@GET
 	@Path("/{username}/sucursal")
 	@Produces({ "application/xml", "application/json" })
+	@PermitAll
 	public SucursalRepresentation getSucursal(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
 		if (trabajadorModel == null)
@@ -44,6 +48,7 @@ public class UsuarioResource {
 	@GET
 	@Path("/{username}/agencia")
 	@Produces({ "application/xml", "application/json" })
+	@PermitAll
 	public AgenciaRepresentation getAgencia(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
 		if (trabajadorModel == null)
@@ -56,6 +61,7 @@ public class UsuarioResource {
 	@GET
 	@Path("/{username}/trabajador")
 	@Produces({ "application/xml", "application/json" })
+	@PermitAll
 	public TrabajadorRepresentation getTrabajador(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
 		return ModelToRepresentation.toRepresentation(trabajadorModel);
@@ -64,6 +70,7 @@ public class UsuarioResource {
 	@GET
 	@Path("/{username}/caja")
 	@Produces({ "application/xml", "application/json" })
+	@PermitAll
 	public CajaRepresentation getCaja(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
 		if (trabajadorModel == null)

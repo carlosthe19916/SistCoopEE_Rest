@@ -3,6 +3,9 @@ package org.softgreen.sistcoop.organizacion.client.representations.idm;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,7 +32,8 @@ public class CajaRepresentation implements Serializable {
 	private List<BovedaRepresentation> bovedas;
 	private List<TrabajadorRepresentation> trabajadores;
 
-	@XmlAttribute	
+	@XmlAttribute
+	@Min(value = 1)
 	public Integer getId() {
 		return id;
 	}
@@ -39,6 +43,7 @@ public class CajaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 1, max = 20)
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -66,6 +71,7 @@ public class CajaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@AssertTrue
 	public boolean isEstado() {
 		return estado;
 	}

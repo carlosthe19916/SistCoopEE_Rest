@@ -3,6 +3,8 @@ package org.softgreen.sistcoop.organizacion.restapi.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -13,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import org.jboss.ejb3.annotation.SecurityDomain;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
@@ -23,10 +26,12 @@ import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentat
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
+import org.softgreen.sistcoop.organizacion.client.util.Roles;
 import org.softgreen.sistcoop.organizacion.managers.BovedaManager;
 
 @Path("/bovedas")
 @Stateless
+@SecurityDomain("keycloak")
 public class BovedaResource {
 
 	@Inject
@@ -38,6 +43,7 @@ public class BovedaResource {
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
+	@PermitAll
 	public BovedaRepresentation getBovedaById(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		BovedaRepresentation rep = ModelToRepresentation.toRepresentation(model);
@@ -47,6 +53,7 @@ public class BovedaResource {
 	@GET
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
+	@PermitAll
 	public List<CajaRepresentation> getCajasAsignadas(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		List<BovedaCajaModel> bovedaCajaList = model.getBovedaCajas();
@@ -68,6 +75,7 @@ public class BovedaResource {
 	@GET
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
+	@PermitAll
 	public List<DetalleHistorialRepresentation> getDetalle(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		HistorialModel historialModel = model.getHistorialActivo();
@@ -82,11 +90,12 @@ public class BovedaResource {
 		} else {
 			return null;
 		}
-	}	
+	}
 
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
+	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
 	public void update(@PathParam("id") Integer id, BovedaRepresentation rep) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		model.setDenominacion(rep.getDenominacion());
@@ -96,6 +105,7 @@ public class BovedaResource {
 	@POST
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
+	@RolesAllowed(Roles.ADMIN)
 	public void desactivar(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
@@ -107,6 +117,7 @@ public class BovedaResource {
 	@POST
 	@Path("/{id}/abrir")
 	@Produces({ "application/xml", "application/json" })
+	@RolesAllowed(Roles.JEFE_CAJA)
 	public void abrir(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
@@ -118,6 +129,7 @@ public class BovedaResource {
 	@POST
 	@Path("/{id}/cerrar")
 	@Produces({ "application/xml", "application/json" })
+	@RolesAllowed(Roles.JEFE_CAJA)
 	public void cerrar(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
@@ -129,6 +141,7 @@ public class BovedaResource {
 	@POST
 	@Path("/{id}/congelar")
 	@Produces({ "application/xml", "application/json" })
+	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
 	public void congelar(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
@@ -140,6 +153,7 @@ public class BovedaResource {
 	@POST
 	@Path("/{id}/descongelar")
 	@Produces({ "application/xml", "application/json" })
+	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
 	public void descongelar(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
@@ -147,4 +161,5 @@ public class BovedaResource {
 		}
 		bovedaManager.descongelar(model);
 	}
+
 }

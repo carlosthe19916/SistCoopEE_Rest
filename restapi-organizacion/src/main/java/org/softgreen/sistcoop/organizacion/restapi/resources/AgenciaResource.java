@@ -3,8 +3,15 @@ package org.softgreen.sistcoop.organizacion.restapi.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -17,6 +24,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.ejb3.annotation.SecurityDomain;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
@@ -31,11 +39,13 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRep
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
+import org.softgreen.sistcoop.organizacion.client.util.Roles;
 import org.softgreen.sistcoop.organizacion.managers.SucursalManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
 
 @Path("/agencias")
 @Stateless
+@SecurityDomain("keycloak")
 public class AgenciaResource {
 
 	@Inject
@@ -62,7 +72,8 @@ public class AgenciaResource {
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public AgenciaRepresentation getAgenciaById(@PathParam("id") Integer id) {
+	@PermitAll
+	public AgenciaRepresentation getAgenciaById(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		AgenciaRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
@@ -71,7 +82,8 @@ public class AgenciaResource {
 	@GET
 	@Path("/codigo/{codigo}")
 	@Produces({ "application/xml", "application/json" })
-	public AgenciaRepresentation getAgenciaByCodigo(@PathParam("codigo") String codigo) {
+	@PermitAll
+	public AgenciaRepresentation getAgenciaByCodigo(@PathParam("codigo") @NotNull @Pattern(regexp = "[0-9]+") @Size(min = 2, max = 2) String codigo) {
 		AgenciaModel model = agenciaProvider.getAgenciaByCodigo(codigo);
 		AgenciaRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
@@ -80,7 +92,8 @@ public class AgenciaResource {
 	@GET
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
-	public List<BovedaRepresentation> getBovedas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+	@PermitAll
+	public List<BovedaRepresentation> getBovedas(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -100,7 +113,8 @@ public class AgenciaResource {
 	@GET
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
-	public List<CajaRepresentation> getCajas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+	@PermitAll
+	public List<CajaRepresentation> getCajas(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -120,7 +134,8 @@ public class AgenciaResource {
 	@GET
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
-	public List<TrabajadorRepresentation> getTrabajadores(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
+	@PermitAll
+	public List<TrabajadorRepresentation> getTrabajadores(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 1) Integer limit, @QueryParam("offset") @Min(value = 1) Integer offset) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -148,7 +163,8 @@ public class AgenciaResource {
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public void updateAgencia(@PathParam("id") Integer id, AgenciaRepresentation agenciaRepresentation) {
+	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL })
+	public void updateAgencia(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid AgenciaRepresentation agenciaRepresentation) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null) {
 			throw new NotFoundException("Agencia not found.");
@@ -162,7 +178,8 @@ public class AgenciaResource {
 	@POST
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
-	public void desactivar(@PathParam("id") Integer id) {
+	@RolesAllowed(Roles.ADMIN)
+	public void desactivar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null) {
 			throw new NotFoundException("Agencia not found.");
@@ -173,7 +190,8 @@ public class AgenciaResource {
 	@POST
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
-	public Response addBoveda(@PathParam("id") Integer id, BovedaRepresentation bovedaRepresentation) {
+	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
+	public Response addBoveda(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid BovedaRepresentation bovedaRepresentation) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
@@ -186,7 +204,8 @@ public class AgenciaResource {
 	@POST
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
-	public Response addCaja(@PathParam("id") Integer id, CajaRepresentation cajaRepresentation) {
+	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
+	public Response addCaja(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid CajaRepresentation cajaRepresentation) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();

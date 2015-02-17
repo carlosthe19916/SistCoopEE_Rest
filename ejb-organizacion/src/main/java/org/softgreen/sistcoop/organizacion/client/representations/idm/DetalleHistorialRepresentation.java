@@ -3,6 +3,8 @@ package org.softgreen.sistcoop.organizacion.client.representations.idm;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -22,6 +24,7 @@ public class DetalleHistorialRepresentation implements Serializable {
 	private int cantidad;
 
 	@XmlAttribute
+	@Min(value = 1)
 	public Long getId() {
 		return id;
 	}
@@ -31,6 +34,8 @@ public class DetalleHistorialRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Min(value = 1)
+	@Max(value = 999)
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -40,6 +45,8 @@ public class DetalleHistorialRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Min(value = 1)
+	@Max(value = 999999999)
 	public int getCantidad() {
 		return cantidad;
 	}

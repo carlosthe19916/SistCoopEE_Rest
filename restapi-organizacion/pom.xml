@@ -75,6 +75,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+
 		<!-- Import the CDI API, we use provided scope as the API is included in 
 			JBoss WildFly -->
 		<dependency>

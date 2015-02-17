@@ -96,7 +96,7 @@ public class BovedaEntity implements Serializable {
 	}
 
 	@NotNull
-	@Size(min = 1, max = 40)
+	@Size(min = 1, max = 60)
 	@NotBlank
 	@NotEmpty
 	public String getDenominacion() {

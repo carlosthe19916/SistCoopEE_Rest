@@ -2,6 +2,9 @@ package org.softgreen.sistcoop.organizacion.client.representations.idm;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,6 +29,7 @@ public class SucursalRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Min(value = 1)
 	public Integer getId() {
 		return id;
 	}
@@ -35,6 +39,7 @@ public class SucursalRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 1, max = 30)
 	public String getAbreviatura() {
 		return abreviatura;
 	}
@@ -44,6 +49,7 @@ public class SucursalRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 1, max = 60)
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -53,6 +59,7 @@ public class SucursalRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@AssertTrue
 	public boolean isEstado() {
 		return estado;
 	}

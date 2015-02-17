@@ -2,6 +2,9 @@ package org.softgreen.sistcoop.organizacion.client.representations.idm;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -31,6 +34,7 @@ public class AgenciaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Min(value = 1)
 	public Integer getId() {
 		return id;
 	}
@@ -40,6 +44,7 @@ public class AgenciaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 2, max = 2)
 	public String getCodigo() {
 		return codigo;
 	}
@@ -49,6 +54,7 @@ public class AgenciaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 1, max = 30)
 	public String getAbreviatura() {
 		return abreviatura;
 	}
@@ -58,6 +64,7 @@ public class AgenciaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 1, max = 60)
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -67,6 +74,7 @@ public class AgenciaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@Size(min = 6, max = 6)
 	public String getUbigeo() {
 		return ubigeo;
 	}
@@ -76,6 +84,7 @@ public class AgenciaRepresentation implements Serializable {
 	}
 
 	@XmlAttribute
+	@AssertTrue
 	public boolean isEstado() {
 		return estado;
 	}
