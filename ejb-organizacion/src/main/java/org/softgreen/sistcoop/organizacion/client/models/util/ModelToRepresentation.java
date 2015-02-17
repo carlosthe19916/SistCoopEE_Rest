@@ -117,6 +117,7 @@ public class ModelToRepresentation {
 			HistorialModel historialActivo = bovedaModel.getHistorialActivo();
 			BovedaRepresentation bovedaRepresentation = new BovedaRepresentation();
 			bovedaRepresentation.setId(bovedaModel.getId());
+			bovedaRepresentation.setDenominacion(bovedaModel.getDenominacion());
 			bovedaRepresentation.setMoneda(bovedaModel.getMoneda());
 			bovedaRepresentation.setAbierto(bovedaModel.isAbierto());
 			bovedaRepresentation.setEstadoMovimiento(bovedaModel.getEstadoMovimiento());
