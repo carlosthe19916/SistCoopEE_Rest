@@ -7,6 +7,11 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
@@ -69,7 +74,7 @@ public class TrabajadorResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public TrabajadorRepresentation findById(@PathParam("id") Integer id) {
+	public TrabajadorRepresentation findById(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		TrabajadorRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
@@ -79,7 +84,7 @@ public class TrabajadorResource {
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public TrabajadorRepresentation findByTipoNumeroDocumento(@QueryParam("tipoDocumento") String tipoDocumento, @QueryParam("numeroDocumento") String numeroDocumento) {
+	public TrabajadorRepresentation findByTipoNumeroDocumento(@QueryParam("tipoDocumento") @NotNull @Pattern(regexp = "[a-zA-Z]") @Size(min = 1, max = 20) String tipoDocumento, @QueryParam("numeroDocumento") @NotNull @Pattern(regexp = "[0-9]+") @Size(min = 1, max = 20) String numeroDocumento) {
 		if (tipoDocumento == null)
 			return null;
 		if (numeroDocumento == null)
@@ -93,7 +98,7 @@ public class TrabajadorResource {
 	@POST
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR })
-	public Response create(TrabajadorRepresentation rep) {
+	public Response create(@Valid TrabajadorRepresentation rep) {
 		AgenciaRepresentation agenciaRepresentation = rep.getAgencia();
 		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(agenciaRepresentation.getId());
 		TrabajadorModel model = representationToModel.createTrabajador(agenciaModel, rep, trabajadorProvider);
@@ -104,7 +109,7 @@ public class TrabajadorResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR })
-	public void update(@PathParam("id") Integer id, TrabajadorRepresentation rep) {
+	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid TrabajadorRepresentation rep) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -118,7 +123,7 @@ public class TrabajadorResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@DenyAll
-	public void delete(@PathParam("id") Integer id) {
+	public void delete(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		boolean removed = trabajadorProvider.removeTrabajador(model);
 		if (!removed)
@@ -129,7 +134,7 @@ public class TrabajadorResource {
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.ADMIN)
-	public void desactivar(@PathParam("id") Integer id) {
+	public void desactivar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		trabajadorManager.desactivarTrabajador(model);
 	}
@@ -138,7 +143,7 @@ public class TrabajadorResource {
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public Response setCaja(@PathParam("id") Integer id, CajaRepresentation cajaRepresentation) {
+	public Response setCaja(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid CajaRepresentation cajaRepresentation) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		CajaModel cajaModel = cajaProvider.getCajaById(cajaRepresentation.getId());
 		if (model == null) {
@@ -168,7 +173,7 @@ public class TrabajadorResource {
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public void removeCaja(@PathParam("id") Integer id) {
+	public void removeCaja(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		if (model == null) {
 			throw new NotFoundException("Trabajador not found.");

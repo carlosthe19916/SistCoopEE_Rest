@@ -7,6 +7,9 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -44,7 +47,7 @@ public class BovedaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public BovedaRepresentation getBovedaById(@PathParam("id") Integer id) {
+	public BovedaRepresentation getBovedaById(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		BovedaRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
@@ -54,7 +57,7 @@ public class BovedaResource {
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<CajaRepresentation> getCajasAsignadas(@PathParam("id") Integer id) {
+	public List<CajaRepresentation> getCajasAsignadas(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		List<BovedaCajaModel> bovedaCajaList = model.getBovedaCajas();
 		List<CajaRepresentation> list = new ArrayList<CajaRepresentation>();
@@ -76,7 +79,7 @@ public class BovedaResource {
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<DetalleHistorialRepresentation> getDetalle(@PathParam("id") Integer id) {
+	public List<DetalleHistorialRepresentation> getDetalle(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		HistorialModel historialModel = model.getHistorialActivo();
 		if (historialModel != null) {
@@ -96,7 +99,7 @@ public class BovedaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public void update(@PathParam("id") Integer id, BovedaRepresentation rep) {
+	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid BovedaRepresentation rep) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		model.setDenominacion(rep.getDenominacion());
 		model.commit();
@@ -106,7 +109,7 @@ public class BovedaResource {
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.ADMIN)
-	public void desactivar(@PathParam("id") Integer id) {
+	public void desactivar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
@@ -118,7 +121,7 @@ public class BovedaResource {
 	@Path("/{id}/abrir")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.JEFE_CAJA)
-	public void abrir(@PathParam("id") Integer id) {
+	public void abrir(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
@@ -130,7 +133,7 @@ public class BovedaResource {
 	@Path("/{id}/cerrar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.JEFE_CAJA)
-	public void cerrar(@PathParam("id") Integer id) {
+	public void cerrar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
@@ -142,7 +145,7 @@ public class BovedaResource {
 	@Path("/{id}/congelar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public void congelar(@PathParam("id") Integer id) {
+	public void congelar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
@@ -154,7 +157,7 @@ public class BovedaResource {
 	@Path("/{id}/descongelar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public void descongelar(@PathParam("id") Integer id) {
+	public void descongelar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");

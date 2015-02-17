@@ -8,6 +8,9 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
@@ -58,7 +61,7 @@ public class SucursalResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public SucursalRepresentation findById(@PathParam("id") Integer id) {
+	public SucursalRepresentation findById(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		SucursalRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
@@ -67,7 +70,7 @@ public class SucursalResource {
 	@GET
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<SucursalRepresentation> findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
+	public List<SucursalRepresentation> findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 1) Integer limit, @QueryParam("offset") @Min(value = 1) Integer offset) {
 		List<SucursalModel> list = null;
 		if (estado == null) {
 			if (limit == null) {
@@ -90,7 +93,7 @@ public class SucursalResource {
 	@POST
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL })
-	public Response create(SucursalRepresentation rep) {
+	public Response create(@Valid SucursalRepresentation rep) {
 		SucursalModel model = representationToModel.createSucursal(rep, sucursalProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(model.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(model.getId())).build();
 	}
@@ -99,7 +102,7 @@ public class SucursalResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL })
-	public void update(@PathParam("id") Integer id, SucursalRepresentation rep) {
+	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid SucursalRepresentation rep) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		model.setAbreviatura(rep.getAbreviatura());
 		model.setDenominacion(rep.getDenominacion());
@@ -110,7 +113,7 @@ public class SucursalResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@DenyAll
-	public void delete(@PathParam("id") Integer id) {
+	public void delete(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		boolean removed = sucursalProvider.removeSucursal(model);
 		if (!removed)
@@ -121,7 +124,7 @@ public class SucursalResource {
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.ADMIN)
-	public void desactivar(@PathParam("id") Integer id) {
+	public void desactivar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		sucursalManager.desactivarSucursal(model);
 	}
@@ -133,7 +136,7 @@ public class SucursalResource {
 	@Path("/{id}/agencias")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<AgenciaRepresentation> getAgencias(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+	public List<AgenciaRepresentation> getAgencias(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		List<AgenciaModel> list;
 		if (estado == null)
@@ -151,7 +154,7 @@ public class SucursalResource {
 	@Path("/{id}/agencias")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL })
-	public Response addAgencia(@PathParam("id") Integer id, AgenciaRepresentation agenciaRepresentation) {
+	public Response addAgencia(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid AgenciaRepresentation agenciaRepresentation) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();

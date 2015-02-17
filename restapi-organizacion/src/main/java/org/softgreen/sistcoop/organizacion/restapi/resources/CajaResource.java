@@ -9,6 +9,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
@@ -70,7 +73,7 @@ public class CajaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public CajaRepresentation getCajaById(@PathParam("id") Integer id) {
+	public CajaRepresentation getCajaById(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		CajaRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
@@ -80,7 +83,7 @@ public class CajaResource {
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<BovedaRepresentation> getBovedasAsignadas(@PathParam("id") Integer id) {
+	public List<BovedaRepresentation> getBovedasAsignadas(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		List<BovedaCajaModel> bovedaCajaList = model.getBovedaCajas();
 		List<BovedaRepresentation> result = new ArrayList<BovedaRepresentation>();
@@ -103,7 +106,7 @@ public class CajaResource {
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<TrabajadorRepresentation> getTrabajadoresAsignados(@PathParam("id") Integer id) {
+	public List<TrabajadorRepresentation> getTrabajadoresAsignados(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		List<TrabajadorCajaModel> trabajadorCajaList = model.getTrabajadorCajas();
 		List<TrabajadorRepresentation> result = new ArrayList<TrabajadorRepresentation>();
@@ -125,7 +128,7 @@ public class CajaResource {
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<DetalleHistorialCajaRepresentation> getDetalle(@PathParam("id") Integer id) {
+	public List<DetalleHistorialCajaRepresentation> getDetalle(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
 
@@ -178,7 +181,7 @@ public class CajaResource {
 	@Path("/{id}/detalle/penultimo")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<DetalleHistorialCajaRepresentation> getPenultimoDetalle(@PathParam("id") Integer id) {
+	public List<DetalleHistorialCajaRepresentation> getPenultimoDetalle(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		return null;
 	}
 
@@ -186,7 +189,7 @@ public class CajaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public void update(@PathParam("id") Integer id, CajaRepresentation rep) {
+	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid CajaRepresentation rep) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		model.setDenominacion(rep.getDenominacion());
 		model.commit();
@@ -197,7 +200,7 @@ public class CajaResource {
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.ADMIN)
-	public void desactivar(@PathParam("id") Integer id) {
+	public void desactivar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
@@ -209,7 +212,7 @@ public class CajaResource {
 	@Path("/{id}/abrir")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.JEFE_CAJA)
-	public void abrir(@PathParam("id") Integer id) {
+	public void abrir(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
@@ -221,7 +224,7 @@ public class CajaResource {
 	@Path("/{id}/cerrar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed(Roles.CAJERO)
-	public void cerrar(@PathParam("id") Integer id) {
+	public void cerrar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
@@ -233,7 +236,7 @@ public class CajaResource {
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public Response addBoveda(@PathParam("id") Integer id, BovedaRepresentation bovedaRepresentation) {
+	public Response addBoveda(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid BovedaRepresentation bovedaRepresentation) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(bovedaRepresentation.getId());
 		if (model == null) {
@@ -251,7 +254,7 @@ public class CajaResource {
 	@Path("/{id}/bovedas/{idBoveda}/desactivar")
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
-	public void desactivarBovedaCaja(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {
+	public void desactivarBovedaCaja(@PathParam("id") @NotNull @Min(value = 1) Integer id, @PathParam("idBoveda") @NotNull @Min(value = 1) Integer idBoveda) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(idBoveda);
 		if (model == null) {
