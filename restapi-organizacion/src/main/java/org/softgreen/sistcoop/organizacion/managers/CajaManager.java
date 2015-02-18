@@ -241,8 +241,7 @@ public class CajaManager {
 				detalleHistorialActivoModel.setCantidad(cantidadNueva);
 				detalleHistorialActivoModel.commit();
 			}
-
-			historialActivoModel.setEstado(false);
+			
 			historialActivoModel.setFechaCierre(calendar.getTime());
 			historialActivoModel.setHoraCierre(calendar.getTime());
 			historialActivoModel.commit();
