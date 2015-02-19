@@ -57,6 +57,18 @@ public class JpaSucursalProvider implements SucursalProvider {
 	}
 
 	@Override
+	public SucursalModel getSucursalByDenominacion(String denominacion) {
+		SucursalModel result = null;		
+		TypedQuery<SucursalEntity> query = em.createNamedQuery(SucursalEntity.findByDenominacion, SucursalEntity.class);
+		query.setParameter("denominacion", denominacion);
+		List<SucursalEntity> list = query.getResultList();		
+		for (SucursalEntity entity : list) {
+			result = new SucursalAdapter(em, entity);
+		}		
+		return result;
+	}
+	
+	@Override
 	public List<SucursalModel> getSucursales() {
 		return getSucursales(true);
 	}

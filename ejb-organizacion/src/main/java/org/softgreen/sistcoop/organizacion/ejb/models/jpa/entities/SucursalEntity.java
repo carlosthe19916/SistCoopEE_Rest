@@ -33,6 +33,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({ 
 	@NamedQuery(name = SucursalEntity.findAll, query = "SELECT s FROM SucursalEntity s"), 
+	@NamedQuery(name = SucursalEntity.findByDenominacion, query = "SELECT s FROM SucursalEntity s WHERE s.denominacion = :denominacion"),
 	@NamedQuery(name = SucursalEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado"),
 	@NamedQuery(name = SucursalEntity.findByFilterText, query = "SELECT s FROM SucursalEntity s WHERE (UPPER(s.denominacion) LIKE :filterText OR s.abreviatura LIKE :filterText) AND s.estado = TRUE")})
 public class SucursalEntity implements Serializable {
@@ -44,6 +45,7 @@ public class SucursalEntity implements Serializable {
 
 	public static final String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.SucursalEntity.";
 	public static final String findAll = base + "findAll";
+	public static final String findByDenominacion = base + "findByDenominacion";
 	public static final String findByEstado = base + "findByEstado";
 	public static final String findByFilterText = base + "findByFilterText";//por defecto solo busca activos
 

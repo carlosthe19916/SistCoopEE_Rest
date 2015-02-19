@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -69,6 +70,15 @@ public class SucursalResource {
 		return rep;
 	}
 
+	@GET
+	@Produces({ "application/xml", "application/json" })
+	@PermitAll
+	public SucursalRepresentation findByDenominacion(@QueryParam("denominacion") @NotNull @Size(min = 1, max = 60) String denominacion) {
+		SucursalModel model = sucursalProvider.getSucursalByDenominacion(denominacion);
+		SucursalRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return rep;
+	}
+	
 	@GET
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
