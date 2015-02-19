@@ -1,15 +1,18 @@
 package org.softgreen.sistcoop.organizacion.restapi.resources;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -101,6 +104,13 @@ public class BovedaResource {
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
 	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid BovedaRepresentation rep) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
+		if (model == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede actualizar.");
+		}
+		
 		model.setDenominacion(rep.getDenominacion());
 		model.commit();
 	}
@@ -114,6 +124,25 @@ public class BovedaResource {
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
 		}
+		if (model.isAbierto())
+			throw new BadRequestException("Boveda abierta, no se puede desactivar");
+		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede desactivar nuevamente.");
+		}
+		
+		List<BovedaCajaModel> list = model.getBovedaCajas();
+		for (BovedaCajaModel bovCajModel : list) {
+			BigDecimal saldo = bovCajModel.getSaldo();
+			CajaModel caja = bovCajModel.getCaja();
+			if (caja.isAbierto()) {
+				throw new EJBException("Caja abierta no se puede desactivar boveda.");
+			}
+			if (saldo.compareTo(BigDecimal.ZERO) != 0) {
+				throw new EJBException("La boveda tiene saldo asignado a caja diferente de cero.");
+			}									
+		}
+		
 		bovedaManager.desactivarBoveda(model);
 	}
 
@@ -126,6 +155,13 @@ public class BovedaResource {
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
 		}
+		if (model.isAbierto()) {
+			throw new BadRequestException("Boveda abierta, no se puede abrir nuevamente.");
+		}		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede abrir.");
+		}
+		
 		bovedaManager.abrir(model);
 	}
 
@@ -138,6 +174,13 @@ public class BovedaResource {
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
 		}
+		if (!model.isAbierto()) {
+			throw new BadRequestException("Boveda cerrada, no se puede cerrar nuevamente.");
+		}		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede cerrar.");
+		}
+		
 		bovedaManager.cerrar(model);
 	}
 
@@ -149,7 +192,14 @@ public class BovedaResource {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
-		}
+		}		
+		if (!model.isAbierto()) {
+			throw new BadRequestException("Boveda cerrada, no se puede congelar.");
+		}		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede congelar.");
+		}	
+		
 		bovedaManager.congelar(model);
 	}
 
@@ -161,6 +211,12 @@ public class BovedaResource {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		if (model == null) {
 			throw new NotFoundException("Boveda not found.");
+		}
+		if (!model.isAbierto()) {
+			throw new BadRequestException("Boveda cerrada, no se puede congelar.");
+		}		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede congelar.");
 		}
 		bovedaManager.descongelar(model);
 	}

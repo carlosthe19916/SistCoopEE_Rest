@@ -192,6 +192,11 @@ public class CajaResource {
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR, Roles.JEFE_CAJA })
 	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid CajaRepresentation rep) {
 		CajaModel model = cajaProvider.getCajaById(id);
+		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Caja inactiva, no se puede cerrar.");
+		}
+		
 		model.setDenominacion(rep.getDenominacion());
 		model.commit();
 		model.commit();

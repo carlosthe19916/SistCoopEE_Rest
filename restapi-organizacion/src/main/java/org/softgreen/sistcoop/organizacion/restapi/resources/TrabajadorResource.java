@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
@@ -112,7 +113,11 @@ public class TrabajadorResource {
 	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid TrabajadorRepresentation rep) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		if (model == null)
-			throw new NotFoundException();
+			throw new NotFoundException();	
+		if (!model.getEstado()) {
+			throw new BadRequestException("Trabajador inactio, no se puede actualizar.");
+		}
+		
 		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(rep.getAgencia().getId());
 		model.setUsuario(rep.getUsuario());
 		model.setAgencia(agenciaModel);
@@ -136,6 +141,13 @@ public class TrabajadorResource {
 	@RolesAllowed(Roles.ADMIN)
 	public void desactivar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
+		if (model == null) {
+			throw new NotFoundException("Trabajador no encontrado.");
+		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Trabajador inactivo, no se puede desactivar nuevamente.");
+		}
+		
 		trabajadorManager.desactivarTrabajador(model);
 	}
 
@@ -152,6 +164,14 @@ public class TrabajadorResource {
 		if (cajaModel == null) {
 			throw new NotFoundException("Caja not found.");
 		}
+		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Trabajador inactivo, no se puede actualizar.");
+		}
+		if (!cajaModel.getEstado()) {
+			throw new NotFoundException("Caja inactiva, no se puede asignar.");
+		}
+		
 		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
 		if (trabajadorCajaModels.size() > 0) {
 			TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaModels.get(0);
@@ -178,6 +198,10 @@ public class TrabajadorResource {
 		if (model == null) {
 			throw new NotFoundException("Trabajador not found.");
 		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Trabajador inactivo, no se puede actualizar.");
+		}
+		
 		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
 		if (trabajadorCajaModels.size() > 0) {
 			TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaModels.get(0);

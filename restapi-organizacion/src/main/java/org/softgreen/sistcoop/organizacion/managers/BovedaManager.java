@@ -42,10 +42,10 @@ public class BovedaManager {
 	public void desactivarBoveda(BovedaModel model) {
 		if (model.isAbierto())
 			throw new EJBException("Boveda abierta, no se puede desactivar");
-
-		model.setEstado(false);
-		model.setEstadoMovimiento(false);
-		model.commit();
+		
+		if (!model.getEstado()) {
+			throw new EJBException("Boveda inactiva, no se puede desactivar nuevamente.");
+		}		
 
 		List<BovedaCajaModel> list = model.getBovedaCajas();
 		for (BovedaCajaModel bovCajModel : list) {
@@ -61,6 +61,10 @@ public class BovedaManager {
 			bovCajModel.setEstado(false);
 			bovCajModel.commit();
 		}
+		
+		model.setEstado(false);
+		model.setEstadoMovimiento(false);
+		model.commit();
 	}
 
 	public void abrir(BovedaModel bovedaModel) {

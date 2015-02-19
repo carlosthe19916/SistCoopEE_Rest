@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -169,6 +170,10 @@ public class AgenciaResource {
 		if (model == null) {
 			throw new NotFoundException("Agencia not found.");
 		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
+		}
+		
 		model.setAbreviatura(agenciaRepresentation.getAbreviatura());
 		model.setDenominacion(agenciaRepresentation.getDenominacion());
 		model.setUbigeo(agenciaRepresentation.getUbigeo());
@@ -184,6 +189,7 @@ public class AgenciaResource {
 		if (model == null) {
 			throw new NotFoundException("Agencia not found.");
 		}
+					
 		sucursalManager.desactivarAgencia(model);
 	}
 
@@ -196,7 +202,10 @@ public class AgenciaResource {
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
-
+		if (!model.getEstado()) {
+			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
+		}
+		
 		BovedaModel bovedaModel = representationToModel.createBoveda(model, bovedaRepresentation, bovedaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaModel.getId())).build();
 	}
@@ -210,7 +219,10 @@ public class AgenciaResource {
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
-
+		if (!model.getEstado()) {
+			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
+		}
+		
 		CajaModel cajaModel = representationToModel.createCaja(model, cajaRepresentation, bovedaProvider, cajaProvider, bovedaCajaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(cajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(cajaModel.getId())).build();
 	}

@@ -11,9 +11,11 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -104,6 +106,13 @@ public class SucursalResource {
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL })
 	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid SucursalRepresentation rep) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
+		if (model == null) {
+			throw new NotFoundException("Sucursal no encontrada.");
+		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Sucursal inactiva, no se puede actualizar.");
+		}
+		
 		model.setAbreviatura(rep.getAbreviatura());
 		model.setDenominacion(rep.getDenominacion());
 		model.commit();
@@ -126,6 +135,13 @@ public class SucursalResource {
 	@RolesAllowed(Roles.ADMIN)
 	public void desactivar(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
+		if (model == null) {
+			throw new NotFoundException("Sucursal no encontrada.");
+		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Sucursal inactiva, no se puede actualizar.");
+		}
+		
 		sucursalManager.desactivarSucursal(model);
 	}
 
@@ -158,6 +174,9 @@ public class SucursalResource {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
+		}		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Sucursal inactiva, no se puede actualizar.");
 		}
 
 		AgenciaModel agenciaModel = representationToModel.createAgencia(model, agenciaRepresentation, agenciaProvider);
