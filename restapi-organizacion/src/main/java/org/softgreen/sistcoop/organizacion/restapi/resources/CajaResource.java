@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
@@ -244,6 +245,20 @@ public class CajaResource {
 		}
 		if (bovedaModel == null) {
 			throw new NotFoundException("Boveda not found.");
+		}		
+		if (model.isAbierto()) {
+			throw new InternalServerErrorException("Caja abierta, debe cerrarla antes de vincular boveda.");
+		}		
+		
+		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
+		for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
+			BovedaModel bovedaModel2 = bovedaCajaModel.getBoveda();
+			if(bovedaCajaModel.equals(bovedaModel2)){
+				throw new BadRequestException("Boveda ya fue asignada.");
+			}
+			if(bovedaModel2.getMoneda().equals(bovedaModel.getMoneda())){
+				throw new BadRequestException("Boveda con moneda " + bovedaModel.getMoneda() + " ya fue asignada.");
+			}
 		}
 
 		BovedaCajaModel bovedaCajaModel = cajaManager.addBoveda(model, bovedaModel);
@@ -266,9 +281,9 @@ public class CajaResource {
 		if (model.isAbierto()) {
 			throw new InternalServerErrorException("Caja abierta, debe cerrarla antes de desvincular boveda.");
 		}
-		if (bovedaModel.isAbierto()) {
+		/*if (bovedaModel.isAbierto()) {
 			throw new InternalServerErrorException("Boveda abierta, debe cerrarla antes de desvincular boveda.");
-		}
+		}*/
 
 		BovedaCajaModel bovedaCajaModelToRemove = null;
 		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
