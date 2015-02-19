@@ -71,14 +71,15 @@ public class SucursalResource {
 	}
 
 	@GET
+	@Path("/denominacion/{denominacion}")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public SucursalRepresentation findByDenominacion(@QueryParam("denominacion") @NotNull @Size(min = 1, max = 60) String denominacion) {
+	public SucursalRepresentation findByDenominacion(@PathParam("denominacion") @NotNull @Size(min = 1, max = 60) String denominacion) {
 		SucursalModel model = sucursalProvider.getSucursalByDenominacion(denominacion);
 		SucursalRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
 	}
-	
+
 	@GET
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
@@ -122,7 +123,7 @@ public class SucursalResource {
 		if (!model.getEstado()) {
 			throw new BadRequestException("Sucursal inactiva, no se puede actualizar.");
 		}
-		
+
 		model.setAbreviatura(rep.getAbreviatura());
 		model.setDenominacion(rep.getDenominacion());
 		model.commit();
@@ -151,7 +152,7 @@ public class SucursalResource {
 		if (!model.getEstado()) {
 			throw new BadRequestException("Sucursal inactiva, no se puede actualizar.");
 		}
-		
+
 		sucursalManager.desactivarSucursal(model);
 	}
 
@@ -184,7 +185,7 @@ public class SucursalResource {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
-		}		
+		}
 		if (!model.getEstado()) {
 			throw new BadRequestException("Sucursal inactiva, no se puede actualizar.");
 		}
