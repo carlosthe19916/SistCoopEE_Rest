@@ -114,7 +114,7 @@ public class AgenciaResource {
 			if (offset == null) {
 				offset = -1;
 			}
-			list = model.getBovedas(filterText, limit, offset);
+			list = model.getBovedas(filterText, offset, limit);
 		} else {
 			list = model.getBovedas(estado);
 		}
@@ -146,7 +146,7 @@ public class AgenciaResource {
 			if (offset == null) {
 				offset = -1;
 			}
-			list = model.getCajas(filterText, limit, offset);
+			list = model.getCajas(filterText, offset, limit);
 		} else {
 			list = model.getCajas(estado);
 		}
@@ -175,7 +175,7 @@ public class AgenciaResource {
 			if (offset == null) {
 				offset = -1;
 			}
-			list = model.getTrabajadores(filterText, limit, offset);
+			list = model.getTrabajadores(filterText, offset, limit);
 		} else {
 			list = model.getTrabajadores(estado);
 		}
@@ -275,6 +275,11 @@ public class AgenciaResource {
 			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
 		}
 		
+		TrabajadorModel modelValidate = trabajadorProvider.getTrabajadorByTipoNumeroDocumento(rep.getTipoDocumento(), rep.getNumeroDocumento());
+		if(modelValidate != null){
+			throw new BadRequestException("Trabajador ya registrado, no se puede continuaar.");
+		}
+			
 		TrabajadorModel model = representationToModel.createTrabajador(agenciaModel, rep, trabajadorProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(model.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(model.getId())).build();
 	}

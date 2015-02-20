@@ -110,14 +110,16 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
-	public List<BovedaModel> getBovedas(String filterText, int limit, int offset) {
+	public List<BovedaModel> getBovedas(String filterText, int firstResult, int maxResults) {
 		TypedQuery<BovedaEntity> query = em.createNamedQuery(BovedaEntity.findByAgenciaAndFilterText, BovedaEntity.class);
 		if (filterText == null)
 			filterText = "";
-		if (limit != -1)
-			query.setFirstResult(offset);
-		if (offset != -1)
-			query.setMaxResults(offset);
+		if (firstResult != -1) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != -1) {
+			query.setMaxResults(maxResults);
+		}
 		query.setParameter("idAgencia", agenciaEntity.getId());
 		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
 		List<BovedaEntity> list = query.getResultList();
@@ -145,14 +147,16 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
-	public List<CajaModel> getCajas(String filterText, int limit, int offset) {
+	public List<CajaModel> getCajas(String filterText, int firstResult, int maxResults) {
 		TypedQuery<CajaEntity> query = em.createNamedQuery(CajaEntity.findByAgenciaAndFilterText, CajaEntity.class);
 		if (filterText == null)
 			filterText = "";
-		if (limit != -1)
-			query.setFirstResult(offset);
-		if (offset != -1)
-			query.setMaxResults(offset);
+		if (firstResult != -1) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != -1) {
+			query.setMaxResults(maxResults);
+		}
 		query.setParameter("idAgencia", agenciaEntity.getId());
 		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
 		List<CajaEntity> list = query.getResultList();
@@ -180,14 +184,17 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
-	public List<TrabajadorModel> getTrabajadores(String filterText, int limit, int offset) {
-		TypedQuery<TrabajadorEntity> query = em.createNamedQuery(TrabajadorEntity.findByFilterText, TrabajadorEntity.class);
+	public List<TrabajadorModel> getTrabajadores(String filterText, int firstResult, int maxResults) {
+		TypedQuery<TrabajadorEntity> query = em.createNamedQuery(TrabajadorEntity.findByAgenciaAndFilterText, TrabajadorEntity.class);
 		if (filterText == null)
 			filterText = "";
-		if (limit != -1)
-			query.setFirstResult(offset);
-		if (offset != -1)
-			query.setMaxResults(offset);
+		if (firstResult != -1) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != -1) {
+			query.setMaxResults(maxResults);
+		}
+		query.setParameter("idAgencia", agenciaEntity.getId());
 		query.setParameter("filterText", "%" + filterText + "%");
 		List<TrabajadorEntity> list = query.getResultList();
 		List<TrabajadorModel> results = new ArrayList<TrabajadorModel>();

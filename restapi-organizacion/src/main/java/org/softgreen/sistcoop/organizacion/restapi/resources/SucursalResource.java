@@ -95,7 +95,7 @@ public class SucursalResource {
 			if (offset == null) {
 				offset = -1;
 			}			
-			list = sucursalProvider.getSucursales(filterText, limit, offset);
+			list = sucursalProvider.getSucursales(filterText, offset, limit);
 		} else {
 			list = sucursalProvider.getSucursales(estado);
 		}
@@ -184,7 +184,7 @@ public class SucursalResource {
 			if (offset == null) {
 				offset = -1;
 			}			
-			list = model.getAgencias(filterText, limit, offset);
+			list = model.getAgencias(filterText, offset, limit);
 		}			
 		else {
 			list = model.getAgencias(estado);

@@ -49,7 +49,7 @@ public interface AgenciaModel extends Model {
 	 * @param limit
 	 * @param offset
 	 */
-	List<BovedaModel> getBovedas(String filterText, int limit, int offset);
+	List<BovedaModel> getBovedas(String filterText, int firstResult, int maxResults);
 
 	/**
 	 * @return cajas activas de la agencia.
@@ -71,7 +71,7 @@ public interface AgenciaModel extends Model {
 	 * @param limit
 	 * @param offset
 	 */
-	List<CajaModel> getCajas(String filterText, int limit, int offset);
+	List<CajaModel> getCajas(String filterText, int firstResult, int maxResults);
 
 	/**
 	 * @return trabajadores activos de la agencia.
@@ -93,6 +93,6 @@ public interface AgenciaModel extends Model {
 	 * @param limit
 	 * @param offset
 	 */
-	List<TrabajadorModel> getTrabajadores(String filterText, int limit, int offset);
+	List<TrabajadorModel> getTrabajadores(String filterText, int firstResult, int maxResults);
 
 }

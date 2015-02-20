@@ -86,14 +86,16 @@ public class JpaSucursalProvider implements SucursalProvider {
 	}
 
 	@Override
-	public List<SucursalModel> getSucursales(String filterText, int limit, int offset) {
+	public List<SucursalModel> getSucursales(String filterText, int firstResult, int maxResults) {
 		TypedQuery<SucursalEntity> query = em.createNamedQuery(SucursalEntity.findByFilterText, SucursalEntity.class);
 		if (filterText == null)
 			filterText = "";
-		if (limit != -1)
-			query.setFirstResult(offset);
-		if (offset != -1)
-			query.setMaxResults(offset);
+		if (firstResult != -1) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != -1) {
+			query.setMaxResults(maxResults);
+		}
 		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
 		List<SucursalEntity> list = query.getResultList();
 		List<SucursalModel> results = new ArrayList<SucursalModel>();

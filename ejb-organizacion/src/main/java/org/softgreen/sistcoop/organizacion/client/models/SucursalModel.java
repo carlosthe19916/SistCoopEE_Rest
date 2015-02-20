@@ -22,6 +22,6 @@ public interface SucursalModel extends Model {
 
 	List<AgenciaModel> getAgencias(boolean estado);
 	
-	List<AgenciaModel> getAgencias(String filterText, int limit, int offset);
+	List<AgenciaModel> getAgencias(String filterText, int firstResult, int maxResults);
 
 }

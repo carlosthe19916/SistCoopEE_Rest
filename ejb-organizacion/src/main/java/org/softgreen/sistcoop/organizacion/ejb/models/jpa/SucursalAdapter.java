@@ -85,14 +85,17 @@ public class SucursalAdapter implements SucursalModel {
 	}
 
 	@Override
-	public List<AgenciaModel> getAgencias(String filterText, int limit, int offset) {
+	public List<AgenciaModel> getAgencias(String filterText, int firstResult, int maxResults) {
 		TypedQuery<AgenciaEntity> query = em.createNamedQuery(AgenciaEntity.findBySucursalAndFilterText, AgenciaEntity.class);		
 		if (filterText == null)
 			filterText = "";
-		if (limit != -1)
-			query.setFirstResult(offset);
-		if (offset != -1)
-			query.setMaxResults(offset);
+		if (firstResult != -1) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != -1) {
+			query.setMaxResults(maxResults);
+		}		
+		
 		query.setParameter("idSucursal", sucursalEntity.getId());
 		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
 		List<AgenciaEntity> list = query.getResultList();
