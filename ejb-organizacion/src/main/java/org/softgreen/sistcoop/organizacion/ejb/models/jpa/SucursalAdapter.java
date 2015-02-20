@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
@@ -83,6 +84,25 @@ public class SucursalAdapter implements SucursalModel {
 		return result;						
 	}
 
+	@Override
+	public List<AgenciaModel> getAgencias(String filterText, int limit, int offset) {
+		TypedQuery<AgenciaEntity> query = em.createNamedQuery(AgenciaEntity.findBySucursalAndFilterText, AgenciaEntity.class);		
+		if (filterText == null)
+			filterText = "";
+		if (limit != -1)
+			query.setFirstResult(offset);
+		if (offset != -1)
+			query.setMaxResults(offset);
+		query.setParameter("idSucursal", sucursalEntity.getId());
+		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
+		List<AgenciaEntity> list = query.getResultList();
+		List<AgenciaModel> results = new ArrayList<AgenciaModel>();
+		for (AgenciaEntity entity : list) {
+			results.add(new AgenciaAdapter(em, entity));
+		}
+		return results;
+	}
+	
 	public static SucursalEntity toSucursalEntity(SucursalModel model, EntityManager em) {
 		if (model instanceof SucursalAdapter) {
 			return ((SucursalAdapter) model).getSucursalEntity();
@@ -104,6 +124,6 @@ public class SucursalAdapter implements SucursalModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
+	}	
 
 }

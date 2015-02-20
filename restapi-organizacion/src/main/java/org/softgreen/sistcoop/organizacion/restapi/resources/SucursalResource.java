@@ -86,12 +86,15 @@ public class SucursalResource {
 	public List<SucursalRepresentation> findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 0) Integer offset) {
 		List<SucursalModel> list = null;
 		if (estado == null) {
+			if(filterText == null){
+				filterText = "";
+			}
 			if (limit == null) {
 				limit = -1;
 			}
 			if (offset == null) {
 				offset = -1;
-			}
+			}			
 			list = sucursalProvider.getSucursales(filterText, limit, offset);
 		} else {
 			list = sucursalProvider.getSucursales(estado);
@@ -107,6 +110,10 @@ public class SucursalResource {
 	@Produces({ "application/xml", "application/json" })
 	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL })
 	public Response create(@Valid SucursalRepresentation rep) {
+		SucursalModel modelPreexists = sucursalProvider.getSucursalByDenominacion(rep.getDenominacion());
+		if(modelPreexists != null){
+			throw new BadRequestException();
+		}
 		SucursalModel model = representationToModel.createSucursal(rep, sucursalProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(model.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(model.getId())).build();
 	}
@@ -163,18 +170,31 @@ public class SucursalResource {
 	@Path("/{id}/agencias")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<AgenciaRepresentation> getAgencias(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado) {
+	public List<AgenciaRepresentation> getAgencias(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 0) Integer offset) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		List<AgenciaModel> list;
-		if (estado == null)
-			list = model.getAgencias();
-		else
+		
+		if (estado == null){
+			if(filterText == null){
+				filterText = "";
+			}
+			if (limit == null) {
+				limit = -1;
+			}
+			if (offset == null) {
+				offset = -1;
+			}			
+			list = model.getAgencias(filterText, limit, offset);
+		}			
+		else {
 			list = model.getAgencias(estado);
+		}
+			
 		List<AgenciaRepresentation> result = new ArrayList<AgenciaRepresentation>();
 		for (AgenciaModel agenciaModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(agenciaModel));
 		}
-		return result;
+		return result;		
 	}
 
 	@POST
@@ -184,7 +204,7 @@ public class SucursalResource {
 	public Response addAgencia(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid AgenciaRepresentation agenciaRepresentation) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		if (model == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			throw new NotFoundException("Sucursal no encontrada.");
 		}
 		if (!model.getEstado()) {
 			throw new BadRequestException("Sucursal inactiva, no se puede actualizar.");

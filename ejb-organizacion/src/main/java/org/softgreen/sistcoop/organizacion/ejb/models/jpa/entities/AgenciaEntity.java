@@ -36,7 +36,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries(value = {
 		@NamedQuery(name = AgenciaEntity.findByCodigo, query = "SELECT a FROM AgenciaEntity a WHERE a.codigo = :codigo"),
-		@NamedQuery(name = AgenciaEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado") })
+		@NamedQuery(name = AgenciaEntity.findByEstado, query = "SELECT a FROM AgenciaEntity a WHERE a.estado = :estado"),
+		@NamedQuery(name = AgenciaEntity.findByFilterText, query = "SELECT a FROM AgenciaEntity a WHERE a.codigo LIKE :filterText OR (UPPER(a.denominacion) LIKE :filterText OR a.abreviatura LIKE :filterText) AND a.estado = TRUE"),
+		@NamedQuery(name = AgenciaEntity.findBySucursalAndFilterText, query = "SELECT a FROM AgenciaEntity a WHERE a.sucursal.id = :idSucursal AND ( a.codigo LIKE :filterText OR (UPPER(a.denominacion) LIKE :filterText OR a.abreviatura LIKE :filterText) ) AND a.estado = TRUE")})
 public class AgenciaEntity implements Serializable {
 
 	/**
@@ -47,6 +49,8 @@ public class AgenciaEntity implements Serializable {
 	public final static String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.Agencia.";
 	public final static String findByCodigo = base + "findByCodigo";
 	public final static String findByEstado = base + "findByEstado";
+	public static final String findByFilterText = base + "findByFilterText";//por defecto solo busca activos
+	public static final String findBySucursalAndFilterText = base + "findBySucursalAndFilterText";//por defecto solo busca activos
 
 	private Integer id;
 	private String codigo;

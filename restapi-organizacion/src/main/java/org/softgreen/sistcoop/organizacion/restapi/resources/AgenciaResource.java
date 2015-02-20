@@ -189,7 +189,10 @@ public class AgenciaResource {
 		if (model == null) {
 			throw new NotFoundException("Agencia not found.");
 		}
-					
+		if (!model.getEstado()) {
+			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
+		}
+		
 		sucursalManager.desactivarAgencia(model);
 	}
 
@@ -200,7 +203,7 @@ public class AgenciaResource {
 	public Response addBoveda(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid BovedaRepresentation bovedaRepresentation) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			throw new NotFoundException("Agencia not found.");
 		}
 		if (!model.getEstado()) {
 			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
@@ -217,7 +220,7 @@ public class AgenciaResource {
 	public Response addCaja(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid CajaRepresentation cajaRepresentation) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			throw new NotFoundException("Agencia not found.");
 		}
 		if (!model.getEstado()) {
 			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
