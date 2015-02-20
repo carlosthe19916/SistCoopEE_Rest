@@ -42,6 +42,16 @@ public interface AgenciaModel extends Model {
 	List<BovedaModel> getBovedas(boolean estado);
 
 	/**
+	 * @return busca bovedas activas segun el filtro y limites de resultado
+	 *         enviados.
+	 * 
+	 * @param filterText
+	 * @param limit
+	 * @param offset
+	 */
+	List<BovedaModel> getBovedas(String filterText, int limit, int offset);
+
+	/**
 	 * @return cajas activas de la agencia.
 	 */
 	List<CajaModel> getCajas();
@@ -52,6 +62,16 @@ public interface AgenciaModel extends Model {
 	 * @param estado
 	 */
 	List<CajaModel> getCajas(boolean estado);
+
+	/**
+	 * @return busca cajas activas segun el filtro y limites de resultado
+	 *         enviados.
+	 * 
+	 * @param filterText
+	 * @param limit
+	 * @param offset
+	 */
+	List<CajaModel> getCajas(String filterText, int limit, int offset);
 
 	/**
 	 * @return trabajadores activos de la agencia.

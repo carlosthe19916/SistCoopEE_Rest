@@ -85,7 +85,7 @@ public class TrabajadorResource {
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public TrabajadorRepresentation findByTipoNumeroDocumento(@QueryParam("tipoDocumento") @NotNull @Pattern(regexp = "[a-zA-Z]") @Size(min = 1, max = 20) String tipoDocumento, @QueryParam("numeroDocumento") @NotNull @Pattern(regexp = "[0-9]+") @Size(min = 1, max = 20) String numeroDocumento) {
+	public TrabajadorRepresentation findByTipoNumeroDocumento(@QueryParam("tipoDocumento") @NotNull @Size(min = 1, max = 20) String tipoDocumento, @QueryParam("numeroDocumento") @NotNull @Pattern(regexp = "[0-9]+") @Size(min = 1, max = 20) String numeroDocumento) {
 		if (tipoDocumento == null)
 			return null;
 		if (numeroDocumento == null)
@@ -113,11 +113,11 @@ public class TrabajadorResource {
 	public void update(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid TrabajadorRepresentation rep) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		if (model == null)
-			throw new NotFoundException();	
+			throw new NotFoundException();
 		if (!model.getEstado()) {
 			throw new BadRequestException("Trabajador inactio, no se puede actualizar.");
 		}
-		
+
 		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(rep.getAgencia().getId());
 		model.setUsuario(rep.getUsuario());
 		model.setAgencia(agenciaModel);
@@ -147,7 +147,7 @@ public class TrabajadorResource {
 		if (!model.getEstado()) {
 			throw new BadRequestException("Trabajador inactivo, no se puede desactivar nuevamente.");
 		}
-		
+
 		trabajadorManager.desactivarTrabajador(model);
 	}
 
@@ -164,14 +164,14 @@ public class TrabajadorResource {
 		if (cajaModel == null) {
 			throw new NotFoundException("Caja not found.");
 		}
-		
+
 		if (!model.getEstado()) {
 			throw new BadRequestException("Trabajador inactivo, no se puede actualizar.");
 		}
 		if (!cajaModel.getEstado()) {
 			throw new NotFoundException("Caja inactiva, no se puede asignar.");
 		}
-		
+
 		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
 		if (trabajadorCajaModels.size() > 0) {
 			TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaModels.get(0);
@@ -201,7 +201,7 @@ public class TrabajadorResource {
 		if (!model.getEstado()) {
 			throw new BadRequestException("Trabajador inactivo, no se puede actualizar.");
 		}
-		
+
 		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
 		if (trabajadorCajaModels.size() > 0) {
 			TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaModels.get(0);

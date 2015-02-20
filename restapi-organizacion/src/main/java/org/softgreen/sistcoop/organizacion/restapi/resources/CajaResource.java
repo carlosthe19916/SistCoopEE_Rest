@@ -211,6 +211,10 @@ public class CajaResource {
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
 		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Caja inactiva, no se puede cerrar.");
+		}
+		
 		cajaManager.desactivarCaja(model);
 	}
 
@@ -223,6 +227,10 @@ public class CajaResource {
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
 		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Caja inactiva, no se puede cerrar.");
+		}
+		
 		cajaManager.abrir(model);
 	}
 
@@ -235,6 +243,10 @@ public class CajaResource {
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
 		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Caja inactiva, no se puede cerrar.");
+		}
+		
 		cajaManager.cerrar(model, detalle);
 	}
 
@@ -251,6 +263,12 @@ public class CajaResource {
 		if (bovedaModel == null) {
 			throw new NotFoundException("Boveda not found.");
 		}		
+		if (!model.getEstado()) {
+			throw new BadRequestException("Caja inactiva, no se puede cerrar.");
+		}
+		if (!bovedaModel.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede vincular.");
+		}
 		if (model.isAbierto()) {
 			throw new InternalServerErrorException("Caja abierta, debe cerrarla antes de vincular boveda.");
 		}		
@@ -282,6 +300,12 @@ public class CajaResource {
 		}
 		if (bovedaModel == null) {
 			throw new NotFoundException("Boveda not found.");
+		}
+		if (!model.getEstado()) {
+			throw new BadRequestException("Caja inactiva, no se puede desvincular.");
+		}
+		if (!bovedaModel.getEstado()) {
+			throw new BadRequestException("Boveda inactiva, no se puede desvincular.");
 		}
 		if (model.isAbierto()) {
 			throw new InternalServerErrorException("Caja abierta, debe cerrarla antes de desvincular boveda.");

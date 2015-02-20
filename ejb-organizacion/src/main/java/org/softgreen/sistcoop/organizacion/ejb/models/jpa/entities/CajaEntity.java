@@ -32,10 +32,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="CAJA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@NamedQueries({ @NamedQuery(name = CajaEntity.findByUsername, query = "SELECT c FROM CajaEntity c INNER JOIN c.trabajadorCajas tc INNER JOIN tc.trabajador t WHERE t.usuario = :username") })
+@NamedQueries({ 
+	@NamedQuery(name = CajaEntity.findByUsername, query = "SELECT c FROM CajaEntity c INNER JOIN c.trabajadorCajas tc INNER JOIN tc.trabajador t WHERE t.usuario = :username"),
+	@NamedQuery(name = CajaEntity.findByAgenciaAndFilterText, query = "SELECT c FROM CajaEntity c WHERE c.agencia.id = :idAgencia AND ( UPPER(c.denominacion) LIKE :filterText ) AND c.estado = TRUE")})
 public class CajaEntity {
 
-	public final static String findByUsername = "Caja.findByUsername";
+	public static final String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity";
+	public final static String findByUsername = base + "findByUsername";		
+	public static final String findByAgenciaAndFilterText = base + "findByAgenciaAndFilterText";//por defecto solo busca activos	
 
 	private Integer id;
 	private String denominacion;

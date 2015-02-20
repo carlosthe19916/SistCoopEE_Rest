@@ -50,7 +50,7 @@ public class AgenciaEntity implements Serializable {
 	public final static String findByCodigo = base + "findByCodigo";
 	public final static String findByEstado = base + "findByEstado";
 	public static final String findByFilterText = base + "findByFilterText";//por defecto solo busca activos
-	public static final String findBySucursalAndFilterText = base + "findBySucursalAndFilterText";//por defecto solo busca activos
+	public static final String findBySucursalAndFilterText = base + "findBySucursalAndFilterText";//por defecto solo busca activos	
 
 	private Integer id;
 	private String codigo;

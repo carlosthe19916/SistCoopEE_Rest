@@ -94,16 +94,27 @@ public class AgenciaResource {
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<BovedaRepresentation> getBovedas(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado) {
+	public List<BovedaRepresentation> getBovedas(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 0) Integer offset) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
 
 		List<BovedaModel> list;
-		if (estado == null)
-			list = model.getBovedas();
-		else
+		if (estado == null) {
+			if (filterText == null) {
+				filterText = "";
+			}
+			if (limit == null) {
+				limit = -1;
+			}
+			if (offset == null) {
+				offset = -1;
+			}
+			list = model.getBovedas(filterText, limit, offset);
+		} else {
 			list = model.getBovedas(estado);
+		}
+
 		List<BovedaRepresentation> result = new ArrayList<BovedaRepresentation>();
 		for (BovedaModel bovedaModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(bovedaModel));
@@ -115,16 +126,27 @@ public class AgenciaResource {
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<CajaRepresentation> getCajas(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado) {
+	public List<CajaRepresentation> getCajas(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 0) Integer offset) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
 
 		List<CajaModel> list;
-		if (estado == null)
-			list = model.getCajas();
-		else
+		if (estado == null) {
+			if (filterText == null) {
+				filterText = "";
+			}
+			if (limit == null) {
+				limit = -1;
+			}
+			if (offset == null) {
+				offset = -1;
+			}
+			list = model.getCajas(filterText, limit, offset);
+		} else {
 			list = model.getCajas(estado);
+		}
+						
 		List<CajaRepresentation> result = new ArrayList<CajaRepresentation>();
 		for (CajaModel cajaModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(cajaModel));
@@ -136,7 +158,7 @@ public class AgenciaResource {
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
 	@PermitAll
-	public List<TrabajadorRepresentation> getTrabajadores(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 1) Integer offset) {
+	public List<TrabajadorRepresentation> getTrabajadores(@PathParam("id") @NotNull @Min(value = 1) Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") @Min(value = 0) Integer limit, @QueryParam("offset") @Min(value = 0) Integer offset) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -173,7 +195,7 @@ public class AgenciaResource {
 		if (!model.getEstado()) {
 			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
 		}
-		
+
 		model.setAbreviatura(agenciaRepresentation.getAbreviatura());
 		model.setDenominacion(agenciaRepresentation.getDenominacion());
 		model.setUbigeo(agenciaRepresentation.getUbigeo());
@@ -192,7 +214,7 @@ public class AgenciaResource {
 		if (!model.getEstado()) {
 			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
 		}
-		
+
 		sucursalManager.desactivarAgencia(model);
 	}
 
@@ -209,6 +231,12 @@ public class AgenciaResource {
 			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
 		}
 		
+		List<BovedaModel> bovedaModels = model.getBovedas();
+		for (BovedaModel bovedaModel : bovedaModels) {
+			if(bovedaModel.getMoneda().equalsIgnoreCase(bovedaRepresentation.getMoneda()))
+				throw new BadRequestException("Moneda ya existente en agencia.");
+		}
+
 		BovedaModel bovedaModel = representationToModel.createBoveda(model, bovedaRepresentation, bovedaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaModel.getId())).build();
 	}
@@ -225,7 +253,7 @@ public class AgenciaResource {
 		if (!model.getEstado()) {
 			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
 		}
-		
+
 		CajaModel cajaModel = representationToModel.createCaja(model, cajaRepresentation, bovedaProvider, cajaProvider, bovedaCajaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(cajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(cajaModel.getId())).build();
 	}

@@ -110,6 +110,25 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
+	public List<BovedaModel> getBovedas(String filterText, int limit, int offset) {
+		TypedQuery<BovedaEntity> query = em.createNamedQuery(BovedaEntity.findByAgenciaAndFilterText, BovedaEntity.class);
+		if (filterText == null)
+			filterText = "";
+		if (limit != -1)
+			query.setFirstResult(offset);
+		if (offset != -1)
+			query.setMaxResults(offset);
+		query.setParameter("idAgencia", agenciaEntity.getId());
+		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
+		List<BovedaEntity> list = query.getResultList();
+		List<BovedaModel> results = new ArrayList<BovedaModel>();
+		for (BovedaEntity entity : list) {
+			results.add(new BovedaAdapter(em, entity));
+		}
+		return results;
+	}
+
+	@Override
 	public List<CajaModel> getCajas() {
 		return getCajas(true);
 	}
@@ -123,6 +142,25 @@ public class AgenciaAdapter implements AgenciaModel {
 				result.add(new CajaAdapter(em, entity));
 		}
 		return result;
+	}
+
+	@Override
+	public List<CajaModel> getCajas(String filterText, int limit, int offset) {
+		TypedQuery<CajaEntity> query = em.createNamedQuery(CajaEntity.findByAgenciaAndFilterText, CajaEntity.class);
+		if (filterText == null)
+			filterText = "";
+		if (limit != -1)
+			query.setFirstResult(offset);
+		if (offset != -1)
+			query.setMaxResults(offset);
+		query.setParameter("idAgencia", agenciaEntity.getId());
+		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
+		List<CajaEntity> list = query.getResultList();
+		List<CajaModel> results = new ArrayList<CajaModel>();
+		for (CajaEntity entity : list) {
+			results.add(new CajaAdapter(em, entity));
+		}
+		return results;
 	}
 
 	@Override
