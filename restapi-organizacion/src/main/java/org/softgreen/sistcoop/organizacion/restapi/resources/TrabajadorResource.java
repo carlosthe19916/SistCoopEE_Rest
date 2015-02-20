@@ -38,7 +38,6 @@ import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorProvider;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
-import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.client.util.Roles;
@@ -81,6 +80,7 @@ public class TrabajadorResource {
 		return rep;
 	}
 
+	//por defecto solo busca activos
 	@GET
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
@@ -94,17 +94,7 @@ public class TrabajadorResource {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorByTipoNumeroDocumento(tipoDocumento, numeroDocumento);
 		TrabajadorRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
-	}
-
-	@POST
-	@Produces({ "application/xml", "application/json" })
-	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR })
-	public Response create(@Valid TrabajadorRepresentation rep) {
-		AgenciaRepresentation agenciaRepresentation = rep.getAgencia();
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(agenciaRepresentation.getId());
-		TrabajadorModel model = representationToModel.createTrabajador(agenciaModel, rep, trabajadorProvider);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(model.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(model.getId())).build();
-	}
+	}	
 
 	@PUT
 	@Path("/{id}")

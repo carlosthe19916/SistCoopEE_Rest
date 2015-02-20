@@ -34,9 +34,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries(value = {
-		@NamedQuery(name = TrabajadorEntity.findByUsuario, query = "SELECT t FROM TrabajadorEntity t WHERE t.usuario = :usuario"),
-		@NamedQuery(name = TrabajadorEntity.findByTipoAndNumeroDocumento, query = "SELECT t FROM TrabajadorEntity t WHERE t.tipoDocumento = :tipoDocumento AND t.numeroDocumento = :numeroDocumento "),
-		@NamedQuery(name = TrabajadorEntity.findByFilterText, query = "SELECT t FROM TrabajadorEntity t WHERE t.numeroDocumento LIKE :filterText") })
+		@NamedQuery(name = TrabajadorEntity.findByUsuario, query = "SELECT t FROM TrabajadorEntity t WHERE t.usuario = :usuario AND t.estado = TRUE"),
+		@NamedQuery(name = TrabajadorEntity.findByTipoAndNumeroDocumento, query = "SELECT t FROM TrabajadorEntity t WHERE t.tipoDocumento = :tipoDocumento AND t.numeroDocumento = :numeroDocumento AND t.estado = TRUE"),
+		@NamedQuery(name = TrabajadorEntity.findByFilterText, query = "SELECT t FROM TrabajadorEntity t WHERE t.numeroDocumento LIKE :filterText AND t.estado = TRUE") })
 public class TrabajadorEntity implements Serializable{
 
 	/**

@@ -34,6 +34,7 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorProvider;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
@@ -61,6 +62,9 @@ public class AgenciaResource {
 	@Inject
 	protected AgenciaProvider agenciaProvider;
 
+	@Inject
+	protected TrabajadorProvider trabajadorProvider;
+	
 	@Inject
 	protected SucursalManager sucursalManager;
 
@@ -256,6 +260,23 @@ public class AgenciaResource {
 
 		CajaModel cajaModel = representationToModel.createCaja(model, cajaRepresentation, bovedaProvider, cajaProvider, bovedaCajaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(cajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(cajaModel.getId())).build();
+	}
+	
+	@POST
+	@Path("/{id}/trabajadores")
+	@Produces({ "application/xml", "application/json" })
+	@RolesAllowed({ Roles.ADMIN, Roles.GERENTE_GENERAL, Roles.ADMINISTRADOR_GENERAL, Roles.ADMINISTRADOR })
+	public Response addTrabajador(@PathParam("id") @NotNull @Min(value = 1) Integer id, @Valid TrabajadorRepresentation rep) {
+		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
+		if (agenciaModel == null) {
+			throw new NotFoundException("Agencia not found.");
+		}
+		if (!agenciaModel.getEstado()) {
+			throw new BadRequestException("Agencia inactiva, no se puede actualizar.");
+		}
+		
+		TrabajadorModel model = representationToModel.createTrabajador(agenciaModel, rep, trabajadorProvider);
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(model.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(model.getId())).build();
 	}
 
 }

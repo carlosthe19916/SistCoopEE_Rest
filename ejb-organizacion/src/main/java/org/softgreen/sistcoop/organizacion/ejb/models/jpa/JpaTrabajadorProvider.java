@@ -61,14 +61,13 @@ public class JpaTrabajadorProvider implements TrabajadorProvider {
 		TypedQuery<TrabajadorEntity> query = em.createNamedQuery(TrabajadorEntity.findByUsuario, TrabajadorEntity.class);
 		query.setParameter("usuario", usuario);
 		List<TrabajadorEntity> list = query.getResultList();
-		if (list.size() > 0){
+		if (list.size() > 0) {
 			for (TrabajadorEntity trabajadorEntity : list) {
-				if(trabajadorEntity.isEstado())
+				if (trabajadorEntity.isEstado())
 					return new TrabajadorAdapter(em, trabajadorEntity);
-			}			
+			}
 			return null;
-		}			
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -80,8 +79,7 @@ public class JpaTrabajadorProvider implements TrabajadorProvider {
 	}
 
 	@Override
-	public TrabajadorModel getTrabajadorByTipoNumeroDocumento(
-			String tipoDocumento, String numeroDocumento) {
+	public TrabajadorModel getTrabajadorByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento) {
 		TypedQuery<TrabajadorEntity> query = em.createNamedQuery(TrabajadorEntity.findByTipoAndNumeroDocumento, TrabajadorEntity.class);
 		query.setParameter("tipoDocumento", tipoDocumento);
 		query.setParameter("numeroDocumento", numeroDocumento);
