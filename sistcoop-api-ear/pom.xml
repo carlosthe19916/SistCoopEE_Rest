@@ -56,6 +56,11 @@
 			<artifactId>restapi-socio</artifactId>
 			<type>war</type>
 		</dependency>
+		<dependency>
+			<groupId>softgreen.sistcoop</groupId>
+			<artifactId>restapi-producto</artifactId>
+			<type>war</type>
+		</dependency>
 
 		<dependency>
 			<groupId>softgreen.sistcoop</groupId>
@@ -75,6 +80,11 @@
 		<dependency>
 			<groupId>softgreen.sistcoop</groupId>
 			<artifactId>ejb-socio</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>softgreen.sistcoop</groupId>
+			<artifactId>ejb-producto</artifactId>
 			<type>ejb</type>
 		</dependency>
 	</dependencies>

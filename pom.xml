@@ -33,10 +33,12 @@
 		<module>ejb-ubigeo</module>
 		<module>ejb-organizacion</module>
 		<module>ejb-socio</module>
+		<module>ejb-producto</module>
 		<module>restapi-persona</module>
 		<module>restapi-ubigeo</module>
 		<module>restapi-organizacion</module>
 		<module>restapi-socio</module>
+		<module>restapi-producto</module>
 	</modules>
 
 	<properties>
@@ -105,6 +107,14 @@
 				<version>${project.version}</version>
 				<type>ejb</type>
 			</dependency>
+			<!-- Define the version of the EJB jar so that we don't need to repeat 
+				ourselves in every module -->
+			<dependency>
+				<groupId>softgreen.sistcoop</groupId>
+				<artifactId>ejb-producto</artifactId>
+				<version>${project.version}</version>
+				<type>ejb</type>
+			</dependency>
 
 			<!-- Define the version of the WAR so that we don't need to repeat ourselves 
 				in every module -->
@@ -138,6 +148,15 @@
 			<dependency>
 				<groupId>softgreen.sistcoop</groupId>
 				<artifactId>restapi-socio</artifactId>
+				<version>${project.version}</version>
+				<type>war</type>
+				<scope>compile</scope>
+			</dependency>
+			<!-- Define the version of the WAR so that we don't need to repeat ourselves 
+				in every module -->
+			<dependency>
+				<groupId>softgreen.sistcoop</groupId>
+				<artifactId>restapi-producto</artifactId>
 				<version>${project.version}</version>
 				<type>war</type>
 				<scope>compile</scope>
