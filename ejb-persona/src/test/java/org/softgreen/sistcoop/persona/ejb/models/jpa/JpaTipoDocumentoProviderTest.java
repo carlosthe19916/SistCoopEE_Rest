@@ -18,7 +18,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.Model;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaProvider;

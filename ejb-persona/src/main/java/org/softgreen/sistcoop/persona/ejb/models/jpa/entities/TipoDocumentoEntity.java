@@ -20,7 +20,7 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 
 @Entity
 @Table(name = "TIPO_DOCUMENTO", indexes = { @Index(columnList = "abreviatura") })

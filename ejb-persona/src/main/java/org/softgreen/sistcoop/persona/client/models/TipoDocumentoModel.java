@@ -1,6 +1,6 @@
 package org.softgreen.sistcoop.persona.client.models;
 
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 
 public interface TipoDocumentoModel extends Model {
 

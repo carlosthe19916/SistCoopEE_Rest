@@ -18,7 +18,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
 import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;

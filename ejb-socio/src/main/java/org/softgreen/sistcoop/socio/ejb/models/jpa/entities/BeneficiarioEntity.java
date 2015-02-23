@@ -4,16 +4,14 @@ package org.softgreen.sistcoop.socio.ejb.models.jpa.entities;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -22,6 +20,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -31,10 +32,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "BENEFICIARIO", indexes = { @Index(columnList = "id") })
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("beneficiario")
-public class Beneficiario implements java.io.Serializable {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
+public class BeneficiarioEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,9 @@ public class Beneficiario implements java.io.Serializable {
 	private String apellidoMaterno;
 	private String nombres;
 
-	public Beneficiario() {
+	private CuentaBancariaEntity cuentaBancaria;
+
+	public BeneficiarioEntity() {
 	}
 
 	@Id
@@ -65,7 +67,6 @@ public class Beneficiario implements java.io.Serializable {
 	@Size(min = 1, max = 20)
 	@NotBlank
 	@NotEmpty
-	@Column(name = "TIPO_DOCUMENTO")
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -78,7 +79,6 @@ public class Beneficiario implements java.io.Serializable {
 	@Size(min = 1, max = 20)
 	@NotEmpty
 	@NotBlank
-	@Column(name = "NUMERO_DOCUMENTO")
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
@@ -137,14 +137,23 @@ public class Beneficiario implements java.io.Serializable {
 		this.porcentajeBeneficio = porcentajeBeneficio;
 	}
 
+	@NotNull
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(foreignKey = @ForeignKey)
+	public CuentaBancariaEntity getCuentaBancaria() {
+		return cuentaBancaria;
+	}
+
+	public void setCuentaBancaria(CuentaBancariaEntity cuentaBancaria) {
+		this.cuentaBancaria = cuentaBancaria;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((apellidoPaterno == null) ? 0 : apellidoPaterno.hashCode());
-		result = prime * result
-				+ ((apellidoMaterno == null) ? 0 : apellidoMaterno.hashCode());
+		result = prime * result + ((apellidoPaterno == null) ? 0 : apellidoPaterno.hashCode());
+		result = prime * result + ((apellidoMaterno == null) ? 0 : apellidoMaterno.hashCode());
 		result = prime * result + ((nombres == null) ? 0 : nombres.hashCode());
 		return result;
 	}
@@ -155,9 +164,9 @@ public class Beneficiario implements java.io.Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Beneficiario))
+		if (!(obj instanceof BeneficiarioEntity))
 			return false;
-		Beneficiario other = (Beneficiario) obj;
+		BeneficiarioEntity other = (BeneficiarioEntity) obj;
 		if (apellidoPaterno == null) {
 			if (other.getApellidoPaterno() != null)
 				return false;

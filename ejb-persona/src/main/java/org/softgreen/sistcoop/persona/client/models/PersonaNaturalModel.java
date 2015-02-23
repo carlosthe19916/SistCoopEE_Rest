@@ -2,8 +2,8 @@ package org.softgreen.sistcoop.persona.client.models;
 
 import java.util.Date;
 
-import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
-import org.softgreen.sistcoop.persona.clien.enums.Sexo;
+import org.softgreen.sistcoop.persona.client.enums.EstadoCivil;
+import org.softgreen.sistcoop.persona.client.enums.Sexo;
 
 public interface PersonaNaturalModel extends Model {
 

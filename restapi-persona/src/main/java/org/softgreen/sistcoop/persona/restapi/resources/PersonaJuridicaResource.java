@@ -19,7 +19,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
+import org.softgreen.sistcoop.persona.client.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.AccionistaProvider;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;

@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
+import org.softgreen.sistcoop.persona.client.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaProvider;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;

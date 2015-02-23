@@ -4,10 +4,10 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
-import org.softgreen.sistcoop.persona.clien.enums.Sexo;
-import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.EstadoCivil;
+import org.softgreen.sistcoop.persona.client.enums.Sexo;
+import org.softgreen.sistcoop.persona.client.enums.TipoEmpresa;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaProvider;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;

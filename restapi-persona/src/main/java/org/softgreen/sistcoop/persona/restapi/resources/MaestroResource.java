@@ -23,10 +23,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
-import org.softgreen.sistcoop.persona.clien.enums.Sexo;
-import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.EstadoCivil;
+import org.softgreen.sistcoop.persona.client.enums.Sexo;
+import org.softgreen.sistcoop.persona.client.enums.TipoEmpresa;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.restapi.representation.EstadoCivilRepresentation;
 import org.softgreen.sistcoop.persona.restapi.representation.SexoRepresentation;
 import org.softgreen.sistcoop.persona.restapi.representation.TipoEmpresaRepresentation;

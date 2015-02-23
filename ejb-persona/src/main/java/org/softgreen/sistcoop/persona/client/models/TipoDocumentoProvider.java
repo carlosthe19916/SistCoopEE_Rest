@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.providers.Provider;
 
 @Local

@@ -31,10 +31,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name = "CUENTA_BANCARIA_TASA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class CuentaBancariaTasa implements java.io.Serializable {
+public class CuentaBancariaTasaEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -42,11 +42,11 @@ public class CuentaBancariaTasa implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private String nombreTasa;
+	private String denominacion;
 	private CuentaBancariaEntity cuentaBancaria;
 	private BigDecimal valor;
 
-	public CuentaBancariaTasa() {
+	public CuentaBancariaTasaEntity() {
 	}
 
 	@Id
@@ -63,12 +63,12 @@ public class CuentaBancariaTasa implements java.io.Serializable {
 	@Size(min = 1, max = 30)
 	@NotBlank
 	@NotEmpty
-	public String getNombreTasa() {
-		return nombreTasa;
+	public String getDenominacion() {
+		return denominacion;
 	}
 
-	public void setNombreTasa(String nombreTasa) {
-		this.nombreTasa = nombreTasa;
+	public void setDenominacion(String denominacion) {
+		this.denominacion = denominacion;
 	}
 
 	@NotNull
@@ -93,6 +93,37 @@ public class CuentaBancariaTasa implements java.io.Serializable {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cuentaBancaria == null) ? 0 : cuentaBancaria.hashCode());
+		result = prime * result + ((denominacion == null) ? 0 : denominacion.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof CuentaBancariaTasaEntity))
+			return false;
+		CuentaBancariaTasaEntity other = (CuentaBancariaTasaEntity) obj;
+		if (cuentaBancaria == null) {
+			if (other.cuentaBancaria != null)
+				return false;
+		} else if (!cuentaBancaria.equals(other.cuentaBancaria))
+			return false;
+		if (denominacion == null) {
+			if (other.denominacion != null)
+				return false;
+		} else if (!denominacion.equals(other.denominacion))
+			return false;
+		return true;
 	}
 
 }

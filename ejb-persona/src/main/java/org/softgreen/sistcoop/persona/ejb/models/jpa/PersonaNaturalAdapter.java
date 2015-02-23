@@ -4,8 +4,8 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 
-import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
-import org.softgreen.sistcoop.persona.clien.enums.Sexo;
+import org.softgreen.sistcoop.persona.client.enums.EstadoCivil;
+import org.softgreen.sistcoop.persona.client.enums.Sexo;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.PersonaNaturalEntity;

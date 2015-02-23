@@ -2,7 +2,7 @@ package org.softgreen.sistcoop.persona.ejb.models.jpa;
 
 import javax.persistence.EntityManager;
 
-import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.client.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.TipoDocumentoEntity;
 

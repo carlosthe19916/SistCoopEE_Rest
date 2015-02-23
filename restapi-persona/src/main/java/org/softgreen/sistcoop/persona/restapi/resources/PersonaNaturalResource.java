@@ -17,8 +17,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
-import org.softgreen.sistcoop.persona.clien.enums.Sexo;
+import org.softgreen.sistcoop.persona.client.enums.EstadoCivil;
+import org.softgreen.sistcoop.persona.client.enums.Sexo;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;

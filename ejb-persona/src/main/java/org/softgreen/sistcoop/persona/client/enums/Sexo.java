@@ -1,4 +1,4 @@
-package org.softgreen.sistcoop.persona.clien.enums;
+package org.softgreen.sistcoop.persona.client.enums;
 
 public enum Sexo {
 

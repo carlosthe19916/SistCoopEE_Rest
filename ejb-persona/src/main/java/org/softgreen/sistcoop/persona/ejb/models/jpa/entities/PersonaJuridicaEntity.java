@@ -31,7 +31,7 @@ import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
+import org.softgreen.sistcoop.persona.client.enums.TipoEmpresa;
 
 @Entity
 @Table(name="PERSONA_JURIDICA", indexes = { @Index(columnList = "id") }, uniqueConstraints = {@UniqueConstraint(columnNames={"TIPO_DOCUMENTO", "NUMERO_DOCUMENTO"})})

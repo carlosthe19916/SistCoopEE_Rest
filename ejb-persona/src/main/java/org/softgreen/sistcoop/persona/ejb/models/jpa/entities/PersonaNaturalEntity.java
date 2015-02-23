@@ -23,8 +23,8 @@ import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
-import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
-import org.softgreen.sistcoop.persona.clien.enums.Sexo;
+import org.softgreen.sistcoop.persona.client.enums.EstadoCivil;
+import org.softgreen.sistcoop.persona.client.enums.Sexo;
 
 @Entity
 @Table(name = "PERSONA_NATURAL", indexes = { @Index(columnList = "id")}, uniqueConstraints = {@UniqueConstraint(columnNames={"TIPO_DOCUMENTO", "NUMERO_DOCUMENTO"})})

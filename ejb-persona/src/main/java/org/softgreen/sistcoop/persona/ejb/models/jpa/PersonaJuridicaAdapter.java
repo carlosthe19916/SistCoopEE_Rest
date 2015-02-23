@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
+import org.softgreen.sistcoop.persona.client.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
