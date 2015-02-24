@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 
+import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.PendienteCajaModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.PendienteCajaEntity;
 
@@ -73,6 +74,12 @@ public class PendienteCajaAdapter implements PendienteCajaModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
+	}
+
+	@Override
+	public HistorialBovedaCajaModel getHistorialBovedaCaja() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
