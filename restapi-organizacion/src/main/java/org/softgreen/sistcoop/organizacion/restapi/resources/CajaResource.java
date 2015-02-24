@@ -38,6 +38,7 @@ import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaCajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
@@ -103,6 +104,22 @@ public class CajaResource {
 		return result;
 	}
 
+	@GET
+	@Path("/{id}/bovedasCaja")
+	@Produces({ "application/xml", "application/json" })
+	@PermitAll
+	public List<BovedaCajaRepresentation> getBovedasCajaAsignadas(@PathParam("id") @NotNull @Min(value = 1) Integer id) {
+		CajaModel model = cajaProvider.getCajaById(id);
+		List<BovedaCajaModel> bovedaCajaList = model.getBovedaCajas();
+		
+		List<BovedaCajaRepresentation> result = new ArrayList<BovedaCajaRepresentation>();	
+		for (BovedaCajaModel bovedaCajaModel : bovedaCajaList) {
+			BovedaCajaRepresentation bovedaCajaRepresentation = ModelToRepresentation.toRepresentation(bovedaCajaModel);
+			result.add(bovedaCajaRepresentation);
+		}
+		return result;
+	}
+	
 	@GET
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
