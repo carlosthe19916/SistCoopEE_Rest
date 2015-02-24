@@ -1,7 +1,5 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities;
 
-// Generated 02-may-2014 11:48:28 by Hibernate Tools 4.0.0
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -32,7 +30,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="PENDIENTE_CAJA", indexes = { @Index(columnList = "id") })
+@Table(name = "PENDIENTE_CAJA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class PendienteCajaEntity implements java.io.Serializable {
@@ -45,12 +43,11 @@ public class PendienteCajaEntity implements java.io.Serializable {
 	private Long id;
 	private Date fecha;
 	private Date hora;
-	private String moneda;
 	private BigDecimal monto;
 	private String observacion;
 	private String trabajador;
 
-	private HistorialBovedaCajaEntity historialCaja;
+	private HistorialBovedaCajaEntity historialBovedaCaja;
 
 	private Timestamp optlk;
 
@@ -85,18 +82,6 @@ public class PendienteCajaEntity implements java.io.Serializable {
 
 	public void setHora(Date hora) {
 		this.hora = hora;
-	}
-
-	@NotNull
-	@Size(min = 3, max = 3)
-	@NotBlank
-	@NotEmpty
-	public String getMoneda() {
-		return moneda;
-	}
-
-	public void setMoneda(String moneda) {
-		this.moneda = moneda;
 	}
 
 	@NotNull
@@ -138,12 +123,12 @@ public class PendienteCajaEntity implements java.io.Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
-	public HistorialBovedaCajaEntity getHistorialCaja() {
-		return historialCaja;
+	public HistorialBovedaCajaEntity getHistorialBovedaCaja() {
+		return historialBovedaCaja;
 	}
 
-	public void setHistorialCaja(HistorialBovedaCajaEntity historialCaja) {
-		this.historialCaja = historialCaja;
+	public void setHistorialCaja(HistorialBovedaCajaEntity historialBovedaCaja) {
+		this.historialBovedaCaja = historialBovedaCaja;
 	}
 
 	@XmlTransient
@@ -161,10 +146,7 @@ public class PendienteCajaEntity implements java.io.Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
-		result = prime * result + ((historialCaja == null) ? 0 : historialCaja.hashCode());
 		result = prime * result + ((hora == null) ? 0 : hora.hashCode());
-		result = prime * result + ((moneda == null) ? 0 : moneda.hashCode());
-		result = prime * result + ((monto == null) ? 0 : monto.hashCode());
 		return result;
 	}
 
@@ -182,25 +164,10 @@ public class PendienteCajaEntity implements java.io.Serializable {
 				return false;
 		} else if (!fecha.equals(other.fecha))
 			return false;
-		if (historialCaja == null) {
-			if (other.historialCaja != null)
-				return false;
-		} else if (!historialCaja.equals(other.historialCaja))
-			return false;
 		if (hora == null) {
 			if (other.hora != null)
 				return false;
 		} else if (!hora.equals(other.hora))
-			return false;
-		if (moneda == null) {
-			if (other.moneda != null)
-				return false;
-		} else if (!moneda.equals(other.moneda))
-			return false;
-		if (monto == null) {
-			if (other.monto != null)
-				return false;
-		} else if (!monto.equals(other.monto))
 			return false;
 		return true;
 	}

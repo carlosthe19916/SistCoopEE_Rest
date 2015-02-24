@@ -10,6 +10,7 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
+import org.softgreen.sistcoop.organizacion.client.models.PendienteCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
@@ -18,6 +19,7 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaCaja
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.PendienteCajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 
@@ -142,15 +144,15 @@ public class ModelToRepresentation {
 		if (model == null)
 			return null;
 		BovedaCajaRepresentation rep = new BovedaCajaRepresentation();
-		rep.setId(model.getId());		
+		rep.setId(model.getId());
 		rep.setEstado(model.getEstado());
 
 		HistorialModel historialModel = model.getHistorialActivo();
-		rep.setSaldo((historialModel != null ? historialModel.getSaldo() : BigDecimal.ZERO));		
+		rep.setSaldo((historialModel != null ? historialModel.getSaldo() : BigDecimal.ZERO));
 
 		return rep;
 	}
-	
+
 	/**
 	 * Devuelve un objeto TrabajadorRepresentation a partir de un model.
 	 * 
@@ -201,4 +203,22 @@ public class ModelToRepresentation {
 		return rep;
 	}
 
+	/**
+	 * Devuelve un objeto DetalleHistorialRepresentation a partir de un model.
+	 * 
+	 * @param model
+	 */
+	public static PendienteCajaRepresentation toRepresentation(PendienteCajaModel model) {
+		if (model == null)
+			return null;
+		PendienteCajaRepresentation rep = new PendienteCajaRepresentation();
+
+		rep.setId(model.getId());
+		rep.setFecha(model.getFecha());
+		rep.setHora(model.getHora());
+		rep.setTrabajador(model.getTrabajador());
+		rep.setObservacion(model.getObservacion());
+
+		return rep;
+	}
 }

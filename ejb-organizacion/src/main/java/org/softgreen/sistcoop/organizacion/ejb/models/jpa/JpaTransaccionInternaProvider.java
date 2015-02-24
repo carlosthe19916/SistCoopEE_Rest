@@ -15,6 +15,7 @@ import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.PendienteCajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorProvider;
+import org.softgreen.sistcoop.organizacion.client.models.TransaccionInternaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TransaccionInternaProvider;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity;
@@ -33,6 +34,16 @@ public class JpaTransaccionInternaProvider implements TransaccionInternaProvider
 		// TODO Auto-generated method stub
 	}
 
-	
+	@Override
+	public TransaccionInternaModel addTransaccionInterna() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TransaccionInternaModel getTransaccionInternaById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

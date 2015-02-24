@@ -57,19 +57,31 @@ public class TransaccionCajaCajaAdapter implements TransaccionCajaCajaModel {
 	}
 
 	@Override
-	public boolean getEstado() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public String getObservacion() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	public boolean getEstado() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setEstado(boolean estado) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public boolean getEstadoSolicitud() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setEstadoSolicitud(boolean estado) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -81,9 +93,9 @@ public class TransaccionCajaCajaAdapter implements TransaccionCajaCajaModel {
 	}
 
 	@Override
-	public void setEstadoConfirmacion() {
+	public void setEstadoConfirmacion(boolean estado) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -95,7 +107,7 @@ public class TransaccionCajaCajaAdapter implements TransaccionCajaCajaModel {
 	@Override
 	public void commit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -139,9 +151,5 @@ public class TransaccionCajaCajaAdapter implements TransaccionCajaCajaModel {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
-	
 
 }

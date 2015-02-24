@@ -11,12 +11,12 @@ public interface PendienteCajaModel extends Model {
 
 	Date getHora();
 
-	String getMoneda();
-
 	BigDecimal getMonto();
 
 	String getObservacion();
 
 	String getTrabajador();
+
+	HistorialBovedaCajaModel getHistorialBovedaCaja();
 
 }

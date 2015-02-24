@@ -9,15 +9,20 @@ public interface TransaccionInternaModel extends Model {
 
 	Date getHora();
 
+	String getObservacion();
+
 	boolean getEstado();
 
-	String getObservacion();
+	void setEstado(boolean estado);
 
 	boolean getEstadoSolicitud();
 
+	boolean setEstadoSolicitud(boolean estado);
+
 	boolean getEstadoConfirmacion();
 
-	void setEstadoConfirmacion();
+	void setEstadoConfirmacion(boolean estado);
 
 	List<DetalleTransaccionInternaModel> getDetalle();
+
 }

@@ -39,78 +39,103 @@ public class TransaccionBovedaEntidadAdapter implements TransaccionBovedaEntidad
 
 	@Override
 	public Date getFecha() {
-		return transaccionBovedaEntidadEntity.getFecha();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Date getHora() {
-		return transaccionBovedaEntidadEntity.getHora();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean getEstado() {
-		return transaccionBovedaEntidadEntity.isEstado();
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setEstado(boolean estado) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public boolean getEstadoSolicitud() {
-		return transaccionBovedaEntidadEntity.isEstadoSolicitud();
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setEstadoSolicitud(boolean estado) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean getEstadoConfirmacion() {
-		return transaccionBovedaEntidadEntity.isEstadoConfirmacion();
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public void setEstadoConfirmacion() {
-		transaccionBovedaEntidadEntity.setEstadoConfirmacion(true);
-		;
+	public void setEstadoConfirmacion(boolean estado) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public List<DetalleTransaccionInternaModel> getDetalle() {
-
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void commit() {
-		em.merge(transaccionBovedaEntidadEntity);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public Long getId() {
-		return transaccionBovedaEntidadEntity.getId();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public BigDecimal getSaldoDisponible() {
-		return transaccionBovedaEntidadEntity.getSaldoDisponible();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public String getOrigen() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getObservacion() {
-		return transaccionBovedaEntidadEntity.getObservacion();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void setObservacion(String observacion) {
-		transaccionBovedaEntidadEntity.setObservacion(observacion);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public HistorialBovedaModel getHistorialBoveda() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public EntidadModel getEntidad() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -58,7 +58,19 @@ public class TransaccionBovedaBovedaAdapter implements TransaccionBovedaBovedaMo
 	}
 
 	@Override
+	public void setEstado(boolean estado) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public boolean getEstadoSolicitud() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setEstadoSolicitud(boolean estado) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -70,7 +82,7 @@ public class TransaccionBovedaBovedaAdapter implements TransaccionBovedaBovedaMo
 	}
 
 	@Override
-	public void setEstadoConfirmacion() {
+	public void setEstadoConfirmacion(boolean estado) {
 		// TODO Auto-generated method stub
 
 	}

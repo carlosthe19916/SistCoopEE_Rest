@@ -12,7 +12,6 @@ public class TransaccionInternaAdapter implements TransaccionInternaModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 
 	@Override
 	public void commit() {
@@ -33,19 +32,31 @@ public class TransaccionInternaAdapter implements TransaccionInternaModel {
 	}
 
 	@Override
-	public boolean getEstado() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public String getObservacion() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	public boolean getEstado() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setEstado(boolean estado) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public boolean getEstadoSolicitud() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setEstadoSolicitud(boolean estado) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -57,7 +68,7 @@ public class TransaccionInternaAdapter implements TransaccionInternaModel {
 	}
 
 	@Override
-	public void setEstadoConfirmacion() {
+	public void setEstadoConfirmacion(boolean estado) {
 		// TODO Auto-generated method stub
 
 	}

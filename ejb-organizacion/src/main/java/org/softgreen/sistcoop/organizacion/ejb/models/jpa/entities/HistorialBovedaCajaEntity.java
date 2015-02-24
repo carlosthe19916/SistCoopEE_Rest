@@ -68,7 +68,7 @@ public class HistorialBovedaCajaEntity extends HistorialEntity implements Serial
 	}
 
 	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCaja")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialBovedaCaja")
 	public Set<PendienteCajaEntity> getTransaccionesPendienteCaja() {
 		return transaccionesPendienteCaja;
 	}
