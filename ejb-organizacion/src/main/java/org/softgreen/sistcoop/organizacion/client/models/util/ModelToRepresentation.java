@@ -14,6 +14,7 @@ import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaCajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
@@ -137,6 +138,19 @@ public class ModelToRepresentation {
 		return rep;
 	}
 
+	public static BovedaCajaRepresentation toRepresentation(BovedaCajaModel model) {
+		if (model == null)
+			return null;
+		BovedaCajaRepresentation rep = new BovedaCajaRepresentation();
+		rep.setId(model.getId());		
+		rep.setEstado(model.getEstado());
+
+		HistorialModel historialModel = model.getHistorialActivo();
+		rep.setSaldo((historialModel != null ? historialModel.getSaldo() : BigDecimal.ZERO));		
+
+		return rep;
+	}
+	
 	/**
 	 * Devuelve un objeto TrabajadorRepresentation a partir de un model.
 	 * 
