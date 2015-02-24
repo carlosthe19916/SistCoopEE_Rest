@@ -68,7 +68,6 @@ public class CuentaBancariaEntity implements java.io.Serializable {
 	private Set<TitularEntity> titulares = new HashSet<TitularEntity>();
 	private Set<AutorizadoEntity> autorizados = new HashSet<AutorizadoEntity>();
 	private Set<BeneficiarioEntity> beneficiarios = new HashSet<BeneficiarioEntity>();
-	private Set<CuentaBancariaTasaEntity> tasas = new HashSet<CuentaBancariaTasaEntity>();
 
 	private Timestamp version;
 
@@ -201,7 +200,7 @@ public class CuentaBancariaEntity implements java.io.Serializable {
 	public void setAutorizados(Set<AutorizadoEntity> autorizados) {
 		this.autorizados = autorizados;
 	}
-	
+
 	@XmlTransient
 	@OneToMany(mappedBy = "cuentaBancaria", fetch = FetchType.LAZY)
 	public Set<BeneficiarioEntity> getBeneficiarios() {
@@ -210,16 +209,6 @@ public class CuentaBancariaEntity implements java.io.Serializable {
 
 	public void setBeneficiarios(Set<BeneficiarioEntity> beneficiarios) {
 		this.beneficiarios = beneficiarios;
-	}
-
-	@XmlTransient
-	@OneToMany(mappedBy = "cuentaBancaria", fetch = FetchType.LAZY)
-	public Set<CuentaBancariaTasaEntity> getTasas() {
-		return tasas;
-	}
-
-	public void setTasas(Set<CuentaBancariaTasaEntity> tasas) {
-		this.tasas = tasas;
 	}
 
 	@Version
