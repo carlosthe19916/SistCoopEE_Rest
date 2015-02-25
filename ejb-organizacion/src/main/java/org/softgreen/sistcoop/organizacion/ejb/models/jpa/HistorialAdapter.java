@@ -45,8 +45,8 @@ public class HistorialAdapter implements HistorialModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
-		historialEntity.setEstado(estado);
+	public void desactivar() {
+		historialEntity.setEstado(false);
 	}
 
 	@Override

@@ -55,8 +55,8 @@ public class BovedaCajaAdapter implements BovedaCajaModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
-		bovedaCajaEntity.setEstado(estado);
+	public void desactivar() {
+		bovedaCajaEntity.setEstado(false);
 	}
 
 	@Override

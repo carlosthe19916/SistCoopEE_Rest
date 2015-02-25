@@ -9,19 +9,31 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
+import org.softgreen.sistcoop.organizacion.client.models.EntidadModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.PendienteCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
+import org.softgreen.sistcoop.organizacion.client.models.TransaccionBovedaBovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.TransaccionBovedaCajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.TransaccionBovedaEntidadModel;
+import org.softgreen.sistcoop.organizacion.client.models.TransaccionCajaCajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.TransaccionInternaModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaCajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.EntidadRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.PendienteCajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.TransaccionBovedaBovedaRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.TransaccionBovedaCajaRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.TransaccionBovedaEntidadRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.TransaccionCajaCajaRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.TransaccionInternaRepresentation;
 
 public class ModelToRepresentation {
 
@@ -220,5 +232,80 @@ public class ModelToRepresentation {
 		rep.setObservacion(model.getObservacion());
 
 		return rep;
+	}
+
+	public static TransaccionInternaRepresentation toRepresentation(TransaccionInternaModel model) {
+		if (model == null)
+			return null;
+		
+		if(model instanceof TransaccionBovedaEntidadRepresentation){
+			TransaccionBovedaEntidadModel modelBovedaEntidad = (TransaccionBovedaEntidadModel) model;
+			TransaccionBovedaEntidadRepresentation rep = new TransaccionBovedaEntidadRepresentation();
+			
+			rep.setId(modelBovedaEntidad.getId());
+			rep.setFecha(model.getFecha());
+			rep.setHora(model.getHora());
+			rep.setEstadoSolicitud(model.getEstadoSolicitud());
+			rep.setEstadoConfirmacion(model.getEstadoConfirmacion());
+			rep.setObservacion(model.getObservacion());
+			rep.setEntidad(toRepresentation(modelBovedaEntidad.getEntidad()));
+			rep.setBovedaOrigen(toRepresentation(modelBovedaEntidad.getBoveda()));
+			rep.setEstado(model.getEstado());		
+			
+			return rep;
+		} else if (model instanceof TransaccionBovedaBovedaModel){
+			TransaccionBovedaBovedaModel modelBovedaBoveda = (TransaccionBovedaBovedaModel) model;
+			TransaccionBovedaBovedaRepresentation rep = new TransaccionBovedaBovedaRepresentation();
+			
+			rep.setId(modelBovedaBoveda.getId());
+			rep.setFecha(model.getFecha());
+			rep.setHora(model.getHora());
+			rep.setEstadoSolicitud(model.getEstadoSolicitud());
+			rep.setEstadoConfirmacion(model.getEstadoConfirmacion());
+			rep.setObservacion(model.getObservacion());
+			rep.setBovedaOrigen(toRepresentation(modelBovedaBoveda.getOrigen()));
+			rep.setBovedaDestino(toRepresentation(modelBovedaBoveda.getDestino()));
+			rep.setEstado(model.getEstado());		
+			
+			return rep;
+		} else if (model instanceof TransaccionBovedaCajaModel){
+			TransaccionBovedaCajaModel modelBovedaCaja = (TransaccionBovedaCajaModel) model;
+			TransaccionBovedaCajaRepresentation rep = new TransaccionBovedaCajaRepresentation();
+			
+			rep.setId(modelBovedaCaja.getId());
+			rep.setFecha(model.getFecha());
+			rep.setHora(model.getHora());
+			rep.setEstadoSolicitud(model.getEstadoSolicitud());
+			rep.setEstadoConfirmacion(model.getEstadoConfirmacion());
+			rep.setObservacion(model.getObservacion());
+			rep.setBoveda(toRepresentation(modelBovedaCaja.getBoveda()));
+			rep.setCaja(toRepresentation(modelBovedaCaja.getCaja()));
+			rep.setEstado(model.getEstado());		
+			
+			return rep;	
+		}			
+		else if (model instanceof TransaccionCajaCajaModel){
+			TransaccionCajaCajaModel modelCajaCaja = (TransaccionCajaCajaModel) model;
+			TransaccionCajaCajaRepresentation rep = new TransaccionCajaCajaRepresentation();
+			
+			rep.setId(modelCajaCaja.getId());
+			rep.setFecha(model.getFecha());
+			rep.setHora(model.getHora());
+			rep.setEstadoSolicitud(model.getEstadoSolicitud());
+			rep.setEstadoConfirmacion(model.getEstadoConfirmacion());
+			rep.setObservacion(model.getObservacion());		
+			rep.setCajaOrigen(toRepresentation(modelCajaCaja.getCajaOrigen()));
+			rep.setCajaDestino(toRepresentation(modelCajaCaja.getCajaDestino()));
+			rep.setEstado(model.getEstado());		
+			
+			return rep;	
+		}		
+		
+		return null;
+	}
+
+	private static EntidadRepresentation toRepresentation(EntidadModel entidad) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

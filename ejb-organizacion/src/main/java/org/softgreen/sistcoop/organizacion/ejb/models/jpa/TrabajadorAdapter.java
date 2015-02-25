@@ -75,8 +75,8 @@ public class TrabajadorAdapter implements TrabajadorModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
-		trabajadorEntity.setEstado(estado);
+	public void desactivar() {
+		trabajadorEntity.setEstado(false);
 	}
 
 	@Override

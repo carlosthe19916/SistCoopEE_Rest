@@ -16,7 +16,7 @@ public interface SucursalModel extends Model {
 
 	boolean getEstado();
 
-	void setEstado(boolean estado);
+	void desactivar();
 
 	List<AgenciaModel> getAgencias();
 

@@ -12,12 +12,12 @@ public interface BovedaCajaModel extends Model {
 
 	boolean getEstado();
 
-	void setEstado(boolean estado);
+	void desactivar();
 
 	BovedaModel getBoveda();
 
 	CajaModel getCaja();
 
 	HistorialModel getHistorialActivo();
-		
+
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleTransaccionInternaModel;
 import org.softgreen.sistcoop.organizacion.client.models.EntidadModel;
@@ -61,19 +62,13 @@ public class TransaccionBovedaCajaAdapter implements TransaccionBovedaCajaModel 
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
+	public void desactivar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public boolean getEstadoSolicitud() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setEstadoSolicitud(boolean estado) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -85,9 +80,9 @@ public class TransaccionBovedaCajaAdapter implements TransaccionBovedaCajaModel 
 	}
 
 	@Override
-	public void setEstadoConfirmacion(boolean estado) {
+	public void confirmar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -99,7 +94,7 @@ public class TransaccionBovedaCajaAdapter implements TransaccionBovedaCajaModel 
 	@Override
 	public void commit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -123,7 +118,7 @@ public class TransaccionBovedaCajaAdapter implements TransaccionBovedaCajaModel 
 	@Override
 	public void setSaldoDisponibleDestino(BigDecimal saldoDisponibleDestino) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -141,23 +136,19 @@ public class TransaccionBovedaCajaAdapter implements TransaccionBovedaCajaModel 
 	@Override
 	public void setObservacion(String observacion) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public HistorialBovedaModel getHistorialBoveda() {
+	public BovedaModel getBoveda() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public HistorialBovedaCajaModel getHistorialBovedaCaja() {
+	public CajaModel getCaja() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
-	
 
 }

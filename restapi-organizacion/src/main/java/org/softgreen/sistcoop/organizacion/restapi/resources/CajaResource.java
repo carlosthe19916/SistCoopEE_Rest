@@ -349,7 +349,7 @@ public class CajaResource {
 			throw new InternalServerErrorException("Caja tiene saldo diferente de 0.");
 		}
 
-		bovedaCajaModelToRemove.setEstado(false);
+		bovedaCajaModelToRemove.desactivar();
 		bovedaCajaModelToRemove.commit();
 	}
 

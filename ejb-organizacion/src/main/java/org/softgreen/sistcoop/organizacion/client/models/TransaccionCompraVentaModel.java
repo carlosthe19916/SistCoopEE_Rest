@@ -15,7 +15,7 @@ public interface TransaccionCompraVentaModel extends TransaccionInternaModel, Mo
 
 	boolean getEstado();
 
-	void setEstado(boolean estado);
+	void desactivar();
 
 	String getObservacion();
 

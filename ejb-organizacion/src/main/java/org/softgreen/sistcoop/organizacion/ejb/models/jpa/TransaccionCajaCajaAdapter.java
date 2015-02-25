@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleTransaccionInternaModel;
 import org.softgreen.sistcoop.organizacion.client.models.EntidadModel;
@@ -69,7 +70,7 @@ public class TransaccionCajaCajaAdapter implements TransaccionCajaCajaModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
+	public void desactivar() {
 		// TODO Auto-generated method stub
 
 	}
@@ -81,19 +82,13 @@ public class TransaccionCajaCajaAdapter implements TransaccionCajaCajaModel {
 	}
 
 	@Override
-	public boolean setEstadoSolicitud(boolean estado) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean getEstadoConfirmacion() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void setEstadoConfirmacion(boolean estado) {
+	public void confirmar() {
 		// TODO Auto-generated method stub
 
 	}
@@ -141,13 +136,13 @@ public class TransaccionCajaCajaAdapter implements TransaccionCajaCajaModel {
 	}
 
 	@Override
-	public HistorialBovedaCajaModel getHistorialOrigen() {
+	public CajaModel getCajaOrigen() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public HistorialBovedaCajaModel getHistorialDestino() {
+	public CajaModel getCajaDestino() {
 		// TODO Auto-generated method stub
 		return null;
 	}

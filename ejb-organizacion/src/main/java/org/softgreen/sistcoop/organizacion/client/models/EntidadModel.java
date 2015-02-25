@@ -6,14 +6,14 @@ public interface EntidadModel extends Model {
 
 	public String getDenominacion();
 
-	public void setDenominacion(String id);
+	public void setDenominacion(String denominacion);
 
 	public String getAbreviatura();
 
-	public void setAbreviatura(String id);
+	public void setAbreviatura(String abreviatura);
 
 	public boolean getEstado();
 
-	public void setEstado(boolean id);
+	public void desactivar();
 
 }

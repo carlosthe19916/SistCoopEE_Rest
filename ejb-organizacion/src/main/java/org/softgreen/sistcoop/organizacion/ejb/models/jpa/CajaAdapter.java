@@ -76,8 +76,8 @@ public class CajaAdapter implements CajaModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
-		cajaEntity.setEstado(estado);
+	public void desactivar() {
+		cajaEntity.setEstado(false);
 	}
 
 	@Override

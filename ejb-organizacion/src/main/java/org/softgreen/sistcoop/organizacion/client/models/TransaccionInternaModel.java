@@ -13,15 +13,13 @@ public interface TransaccionInternaModel extends Model {
 
 	boolean getEstado();
 
-	void setEstado(boolean estado);
+	void desactivar();
 
 	boolean getEstadoSolicitud();
 
-	boolean setEstadoSolicitud(boolean estado);
-
 	boolean getEstadoConfirmacion();
 
-	void setEstadoConfirmacion(boolean estado);
+	void confirmar();
 
 	List<DetalleTransaccionInternaModel> getDetalle();
 

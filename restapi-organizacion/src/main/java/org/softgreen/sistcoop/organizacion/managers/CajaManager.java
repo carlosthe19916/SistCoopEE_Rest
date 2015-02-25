@@ -66,7 +66,7 @@ public class CajaManager {
 			throw new EJBException("La caja tiene saldo asignado diferente de cero.");
 		}
 
-		bovedaCajaModel.setEstado(false);
+		bovedaCajaModel.desactivar();
 		bovedaCajaModel.commit();
 	}
 
@@ -89,7 +89,7 @@ public class CajaManager {
 			trabajadorCajaProvider.removeTrabajadorCaja(trabCajModel);
 		}
 
-		model.setEstado(false);
+		model.desactivar();
 		model.setEstadoMovimiento(false);
 		model.commit();
 
@@ -151,7 +151,7 @@ public class CajaManager {
 
 				List<DetalleHistorialModel> detalleHistorialActivoModels = historialActivoModel.getDetalle();
 
-				historialActivoModel.setEstado(false);
+				historialActivoModel.desactivar();
 				historialActivoModel.setFechaCierre(calendar.getTime());
 				historialActivoModel.setHoraCierre(calendar.getTime());
 

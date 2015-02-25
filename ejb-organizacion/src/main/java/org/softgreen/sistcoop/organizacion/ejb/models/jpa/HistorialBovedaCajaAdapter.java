@@ -47,8 +47,8 @@ public class HistorialBovedaCajaAdapter implements HistorialBovedaCajaModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
-		historialCajaEntity.setEstado(estado);
+	public void desactivar() {
+		historialCajaEntity.setEstado(false);
 	}
 
 	@Override

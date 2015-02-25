@@ -20,7 +20,7 @@ public interface CajaModel extends Model {
 
 	boolean getEstado();
 
-	void setEstado(boolean estado);
+	void desactivar();
 
 	AgenciaModel getAgencia();	
 

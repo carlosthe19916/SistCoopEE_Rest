@@ -19,26 +19,26 @@ public class SucursalManager {
 
 	@Inject
 	protected TrabajadorManager trabajadorManager;
-	
+
 	@Inject
 	protected BovedaManager bovedaManager;
-	
+
 	@Inject
-	protected CajaManager cajaManager;	
-	
-	public void desactivarSucursal(SucursalModel model) {			
-		model.setEstado(false);
-		model.commit();			
+	protected CajaManager cajaManager;
+
+	public void desactivarSucursal(SucursalModel model) {
+		model.desactivar();
+		model.commit();
 		List<AgenciaModel> agencias = model.getAgencias();
 		for (AgenciaModel agenciaModel : agencias) {
 			desactivarAgencia(agenciaModel);
-		}    	           
+		}
 	}
 
 	public void desactivarAgencia(AgenciaModel model) {
-		model.setEstado(false);
+		model.desactivar();
 		model.commit();
-		
+
 		List<BovedaModel> bovedasModel = model.getBovedas();
 		List<CajaModel> cajasModel = model.getCajas();
 		List<TrabajadorModel> trajadoresModel = model.getTrabajadores();
@@ -47,7 +47,7 @@ public class SucursalManager {
 			bovedaManager.desactivarBoveda(bovedaModel);
 		}
 		for (CajaModel cajaModel : cajasModel) {
-			cajaManager.desactivarCaja(cajaModel);			
+			cajaManager.desactivarCaja(cajaModel);
 		}
 		for (TrabajadorModel trabajadorModel : trajadoresModel) {
 			trabajadorManager.desactivarTrabajador(trabajadorModel);

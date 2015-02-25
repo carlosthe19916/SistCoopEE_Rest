@@ -64,8 +64,8 @@ public class SucursalAdapter implements SucursalModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
-		sucursalEntity.setEstado(estado);
+	public void desactivar() {
+		sucursalEntity.setEstado(false);
 	}
 
 	@Override
@@ -75,18 +75,18 @@ public class SucursalAdapter implements SucursalModel {
 
 	@Override
 	public List<AgenciaModel> getAgencias(boolean estado) {
-		Set<AgenciaEntity> list = sucursalEntity.getAgencias();		
+		Set<AgenciaEntity> list = sucursalEntity.getAgencias();
 		List<AgenciaModel> result = new ArrayList<AgenciaModel>();
 		for (AgenciaEntity entity : list) {
 			if (entity.isEstado() == estado)
 				result.add(new AgenciaAdapter(em, entity));
 		}
-		return result;						
+		return result;
 	}
 
 	@Override
 	public List<AgenciaModel> getAgencias(String filterText, int firstResult, int maxResults) {
-		TypedQuery<AgenciaEntity> query = em.createNamedQuery(AgenciaEntity.findBySucursalAndFilterText, AgenciaEntity.class);		
+		TypedQuery<AgenciaEntity> query = em.createNamedQuery(AgenciaEntity.findBySucursalAndFilterText, AgenciaEntity.class);
 		if (filterText == null)
 			filterText = "";
 		if (firstResult != -1) {
@@ -94,8 +94,8 @@ public class SucursalAdapter implements SucursalModel {
 		}
 		if (maxResults != -1) {
 			query.setMaxResults(maxResults);
-		}		
-		
+		}
+
 		query.setParameter("idSucursal", sucursalEntity.getId());
 		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
 		List<AgenciaEntity> list = query.getResultList();
@@ -105,7 +105,7 @@ public class SucursalAdapter implements SucursalModel {
 		}
 		return results;
 	}
-	
+
 	public static SucursalEntity toSucursalEntity(SucursalModel model, EntityManager em) {
 		if (model instanceof SucursalAdapter) {
 			return ((SucursalAdapter) model).getSucursalEntity();
@@ -127,6 +127,6 @@ public class SucursalAdapter implements SucursalModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}	
+	}
 
 }

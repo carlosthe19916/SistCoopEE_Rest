@@ -13,4 +13,5 @@ public interface DetalleTransaccionClienteModel extends Model {
 	void setCantidad(int valor);
 
 	TransaccionClienteModel getTransaccion();
+
 }

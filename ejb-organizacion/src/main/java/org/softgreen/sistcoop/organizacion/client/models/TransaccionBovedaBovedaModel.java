@@ -12,13 +12,12 @@ public interface TransaccionBovedaBovedaModel extends TransaccionInternaModel, M
 
 	void setSaldoDisponibleDestino(BigDecimal saldoDisponibleDestino);
 
-	String getOrigen();
-
 	String getObservacion();
 
 	void setObservacion(String observacion);
 
-	HistorialBovedaModel getHistorialOrigen();
+	BovedaModel getOrigen();
 
-	HistorialBovedaModel getHistorialDestino();
+	BovedaModel getDestino();
+
 }

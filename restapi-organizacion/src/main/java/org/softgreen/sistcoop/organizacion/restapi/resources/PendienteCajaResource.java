@@ -15,7 +15,6 @@ import javax.ws.rs.QueryParam;
 
 import org.jboss.ejb3.annotation.SecurityDomain;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
-import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.PendienteCajaModel;

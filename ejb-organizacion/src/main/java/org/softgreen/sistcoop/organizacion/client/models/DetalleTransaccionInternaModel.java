@@ -15,4 +15,5 @@ public interface DetalleTransaccionInternaModel extends Model {
 	void setCantidad(int valor);
 
 	TransaccionInternaModel getTransaccion();
+
 }

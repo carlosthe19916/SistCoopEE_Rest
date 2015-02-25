@@ -1,24 +1,15 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
-import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleTransaccionInternaModel;
 import org.softgreen.sistcoop.organizacion.client.models.EntidadModel;
-import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaModel;
-import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.TransaccionBovedaEntidadModel;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.DetalleHistorialEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.DetalleTransaccionBovedaEntidadEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.DetalleTransaccionInternaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TransaccionBovedaEntidadEntity;
 
 public class TransaccionBovedaEntidadAdapter implements TransaccionBovedaEntidadModel {
@@ -56,7 +47,7 @@ public class TransaccionBovedaEntidadAdapter implements TransaccionBovedaEntidad
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
+	public void desactivar() {
 		// TODO Auto-generated method stub
 
 	}
@@ -68,19 +59,13 @@ public class TransaccionBovedaEntidadAdapter implements TransaccionBovedaEntidad
 	}
 
 	@Override
-	public boolean setEstadoSolicitud(boolean estado) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean getEstadoConfirmacion() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void setEstadoConfirmacion(boolean estado) {
+	public void confirmar() {
 		// TODO Auto-generated method stub
 
 	}
@@ -128,7 +113,7 @@ public class TransaccionBovedaEntidadAdapter implements TransaccionBovedaEntidad
 	}
 
 	@Override
-	public HistorialBovedaModel getHistorialBoveda() {
+	public BovedaModel getBoveda() {
 		// TODO Auto-generated method stub
 		return null;
 	}

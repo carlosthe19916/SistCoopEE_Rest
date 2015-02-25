@@ -84,8 +84,8 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
-		agenciaEntity.setEstado(estado);
+	public void desactivar() {
+		agenciaEntity.setEstado(false);
 	}
 
 	@Override

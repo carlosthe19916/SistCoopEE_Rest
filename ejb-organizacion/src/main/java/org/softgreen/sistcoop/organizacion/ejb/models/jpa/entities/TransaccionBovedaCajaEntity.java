@@ -1,8 +1,5 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities;
 
-// Generated 02-may-2014 11:48:28 by Hibernate Tools 4.0.0
-
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,9 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,7 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 
 @Entity
-@Table(name="TRANSACCION_BOVEDA_CAJA", indexes = { @Index(columnList = "id") })
+@Table(name = "TRANSACCION_BOVEDA_CAJA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TransaccionBovedaCajaEntity extends TransaccionInternaEntity implements java.io.Serializable {
@@ -47,9 +41,6 @@ public class TransaccionBovedaCajaEntity extends TransaccionInternaEntity implem
 	private Long id;
 	private HistorialBovedaEntity historialBoveda;
 	private HistorialBovedaCajaEntity historialBovedaCaja;
-
-	private BigDecimal saldoDisponibleOrigen;
-	private BigDecimal saldoDisponibleDestino;
 
 	private String origen;
 
@@ -88,30 +79,6 @@ public class TransaccionBovedaCajaEntity extends TransaccionInternaEntity implem
 
 	public void setHistorialBovedaCaja(HistorialBovedaCajaEntity historialCaja) {
 		this.historialBovedaCaja = historialCaja;
-	}
-
-	@NotNull
-	@Min(value = 0)
-	@DecimalMin(value = "0")
-	@Digits(integer = 18, fraction = 2)
-	public BigDecimal getSaldoDisponibleOrigen() {
-		return saldoDisponibleOrigen;
-	}
-
-	public void setSaldoDisponibleOrigen(BigDecimal saldoDisponibleOrigen) {
-		this.saldoDisponibleOrigen = saldoDisponibleOrigen;
-	}
-
-	@NotNull
-	@Min(value = 0)
-	@DecimalMin(value = "0")
-	@Digits(integer = 18, fraction = 2)
-	public BigDecimal getSaldoDisponibleDestino() {
-		return saldoDisponibleDestino;
-	}
-
-	public void setSaldoDisponibleDestino(BigDecimal saldoDisponibleDestino) {
-		this.saldoDisponibleDestino = saldoDisponibleDestino;
 	}
 
 	@NotNull

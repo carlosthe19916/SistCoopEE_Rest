@@ -22,9 +22,10 @@ public interface HistorialModel extends Model {
 
 	boolean getEstado();
 
-	void setEstado(boolean estado);
+	void desactivar();
 
 	BigDecimal getSaldo();
 
 	List<DetalleHistorialModel> getDetalle();
+
 }

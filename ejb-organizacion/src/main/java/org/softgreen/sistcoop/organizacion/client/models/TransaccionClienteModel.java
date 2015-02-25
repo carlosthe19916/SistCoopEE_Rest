@@ -16,7 +16,7 @@ public interface TransaccionClienteModel extends Model {
 
 	boolean getEstado();
 
-	void setEstado();
+	void desactivar();
 
 	String getObservacion();
 

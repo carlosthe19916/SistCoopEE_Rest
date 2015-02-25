@@ -1,6 +1,6 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -9,16 +9,12 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
-import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
-import org.softgreen.sistcoop.organizacion.client.models.PendienteCajaProvider;
-import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
-import org.softgreen.sistcoop.organizacion.client.models.TrabajadorProvider;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.EntidadModel;
 import org.softgreen.sistcoop.organizacion.client.models.TransaccionInternaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TransaccionInternaProvider;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity;
 
 @Named
 @Stateless
@@ -32,10 +28,29 @@ public class JpaTransaccionInternaProvider implements TransaccionInternaProvider
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public TransaccionInternaModel addTransaccionInterna() {
+	public TransaccionInternaModel addTransaccionInterna(EntidadModel entidadModel, BovedaModel bovedaModel, String observacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TransaccionInternaModel addTransaccionInterna(BovedaModel bovedaModelOrigen, BovedaModel bovedaModelDestino, String observacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TransaccionInternaModel addTransaccionInterna(BovedaModel bovedaModelOrigen, CajaModel cajaModel, String observacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TransaccionInternaModel addTransaccionInterna(CajaModel cajaModelOrigen, CajaModel cajaModelDestino, String observacion) {
 		// TODO Auto-generated method stub
 		return null;
 	}

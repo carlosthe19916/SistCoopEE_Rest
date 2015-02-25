@@ -58,7 +58,7 @@ public class TransaccionBovedaBovedaAdapter implements TransaccionBovedaBovedaMo
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
+	public void desactivar() {
 		// TODO Auto-generated method stub
 
 	}
@@ -70,19 +70,13 @@ public class TransaccionBovedaBovedaAdapter implements TransaccionBovedaBovedaMo
 	}
 
 	@Override
-	public boolean setEstadoSolicitud(boolean estado) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean getEstadoConfirmacion() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void setEstadoConfirmacion(boolean estado) {
+	public void confirmar() {
 		// TODO Auto-generated method stub
 
 	}
@@ -124,12 +118,6 @@ public class TransaccionBovedaBovedaAdapter implements TransaccionBovedaBovedaMo
 	}
 
 	@Override
-	public String getOrigen() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getObservacion() {
 		// TODO Auto-generated method stub
 		return null;
@@ -142,13 +130,13 @@ public class TransaccionBovedaBovedaAdapter implements TransaccionBovedaBovedaMo
 	}
 
 	@Override
-	public HistorialBovedaModel getHistorialOrigen() {
+	public BovedaModel getOrigen() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public HistorialBovedaModel getHistorialDestino() {
+	public BovedaModel getDestino() {
 		// TODO Auto-generated method stub
 		return null;
 	}

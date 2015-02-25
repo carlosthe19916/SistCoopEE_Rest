@@ -18,7 +18,8 @@ public interface TransaccionBovedaCajaModel extends TransaccionInternaModel, Mod
 
 	void setObservacion(String observacion);
 
-	HistorialBovedaModel getHistorialBoveda();
+	BovedaModel getBoveda();
 
-	HistorialBovedaCajaModel getHistorialBovedaCaja();
+	CajaModel getCaja();
+
 }

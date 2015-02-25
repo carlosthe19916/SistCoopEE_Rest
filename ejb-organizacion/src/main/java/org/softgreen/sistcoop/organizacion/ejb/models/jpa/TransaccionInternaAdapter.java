@@ -44,7 +44,7 @@ public class TransaccionInternaAdapter implements TransaccionInternaModel {
 	}
 
 	@Override
-	public void setEstado(boolean estado) {
+	public void desactivar() {
 		// TODO Auto-generated method stub
 
 	}
@@ -56,27 +56,21 @@ public class TransaccionInternaAdapter implements TransaccionInternaModel {
 	}
 
 	@Override
-	public boolean setEstadoSolicitud(boolean estado) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean getEstadoConfirmacion() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void setEstadoConfirmacion(boolean estado) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<DetalleTransaccionInternaModel> getDetalle() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void confirmar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
